@@ -9,7 +9,7 @@ module.exports = (req, res) => {
 
   // Specify the PDF file path
   const pdfFilePath = path.join(__dirname, './output1.pdf');
-
+  console.log(pdfFilePath)  
   // Serve the PDF file
   fs.readFile(pdfFilePath, (err, data) => {
     if (err) {
