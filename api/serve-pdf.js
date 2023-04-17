@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   // Specify the PDF file path
-  const pdfFilePath = path.join(__dirname, '../public/output.pdf');
+  const pdfFilePath = path.join(__dirname, '../public/output1.pdf');
 
   // Serve the PDF file
   fs.readFile(pdfFilePath, (err, data) => {
