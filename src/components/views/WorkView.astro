@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrowserFrame from '../BrowserFrame.astro';
 import Icon from '../Icon.astro';
 import Img from '../Img.astro';
+import PhoneFrame from '../PhoneFrame.astro';
 import { withBase } from '../../lib/url';
-import { workSlug } from '../../lib/work';
-import { caseStudy } from '../../lib/schema';
+import { storeLinks, workSlug } from '../../lib/work';
+import { caseStudy, mobileApp } from '../../lib/schema';
 import { alternatesFor, homeAnchor, routes, type Locale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/ui';
 
@@ -21,6 +22,8 @@ const { data } = project;
 const { Content } = await render(project);
 const slug = workSlug(project);
 const alternates = alternatesFor((l) => routes.work(l, slug));
+const stores = storeLinks(data);
+const app = mobileApp(alternates[locale], project);
 ---
 <BaseLayout
   locale={locale}
@@ -30,7 +33,7 @@ const alternates = alternatesFor((l) => routes.work(l, slug));
   image={data.screenshot ?? data.cover}
   imageAlt={`${data.client} — ${t('work.homepage')}`}
   breadcrumb={data.client}
-  schema={[caseStudy(locale, alternates[locale], project)]}
+  schema={[caseStudy(locale, alternates[locale], project), ...(app ? [app] : [])]}
 >
   <article>
     <header class="container-x pt-36 pb-12 md:pt-44">
@@ -57,6 +60,16 @@ const alternates = alternatesFor((l) => routes.work(l, slug));
           <dt class="eyebrow text-ink-2">{t('work.liveSite')}</dt>
           <dd class="mt-1 text-lg font-medium"><a href={data.url} target="_blank" rel="noopener" class="link-underline inline-flex items-center gap-1">{new URL(data.url).hostname.replace(/^www\./, '')} <Icon name="arrow-up-right" size={16} /></a></dd>
         </div>
+        {stores.length > 0 && (
+          <div>
+            <dt class="eyebrow text-ink-2">{t('work.app')}</dt>
+            <dd class="mt-1 flex flex-wrap gap-x-5 gap-y-1 text-lg font-medium">
+              {stores.map((store) => (
+                <a href={store.href} target="_blank" rel="noopener" class="link-underline inline-flex items-center gap-1">{store.label} <Icon name="arrow-up-right" size={16} /></a>
+              ))}
+            </dd>
+          </div>
+        )}
       </dl>
       <div class="lg:col-span-8">
         <div class="space-y-6 text-xl leading-relaxed text-ink-2 md:text-2xl [&>p:first-child]:text-ink">
@@ -72,6 +85,34 @@ const alternates = alternatesFor((l) => routes.work(l, slug));
         )}
       </div>
     </div>
+
+    {data.appScreens.length > 0 && (
+      <section aria-labelledby="app-title" class="mb-20 overflow-hidden bg-sand-2 py-20 md:mb-28 md:py-28">
+        <div class="container-x">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="app-title" class="display text-title" data-reveal>{t('work.appTitle')} <span class="accent text-terra-deep">{t('work.appTitleAccent')}</span></h2>
+            {stores.length > 0 && (
+              <div class="flex flex-wrap gap-3" data-reveal style="--i:1">
+                {stores.map((store, i) => (
+                  <a href={store.href} target="_blank" rel="noopener" class:list={['btn', i === 0 ? 'btn-ink' : 'btn-ghost']}>
+                    {store.label} <Icon name="arrow-up-right" size={16} />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <div role="region" aria-labelledby="app-title" tabindex="0" class="-mx-2 mt-12 overflow-x-auto px-2 pb-6 [scrollbar-width:thin]" data-reveal style="--i:2">
+            <ul class="flex snap-x snap-mandatory gap-5">
+              {data.appScreens.map((screen) => (
+                <li class="w-56 shrink-0 snap-start md:w-64">
+                  <PhoneFrame src={screen.src} alt={screen.alt} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    )}
 
     {data.gallery.length > 0 && (
       <section aria-label={t('work.gallery')} class="container-x">

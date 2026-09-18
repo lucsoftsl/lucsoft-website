@@ -1,0 +1,17 @@
+---
+// A native-app screenshot inside a simple phone bezel.
+import Img from './Img.astro';
+
+interface Props {
+  src: string;
+  alt: string;
+  /** Rendered width of the frame, for srcset selection. */
+  sizes?: string;
+  class?: string;
+}
+
+const { src, alt, sizes = '(min-width: 768px) 256px, 224px', class: className } = Astro.props;
+---
+<figure class:list={['rounded-[2.4rem] bg-ink p-[0.45rem] shadow-[0_30px_60px_-28px_rgb(19_19_19/0.55),inset_0_0_0_1px_rgb(255_255_255/0.08)]', className]}>
+  <Img src={src} alt={alt} sizes={sizes} class="block w-full rounded-[2rem]" />
+</figure>

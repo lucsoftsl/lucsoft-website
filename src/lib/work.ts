@@ -21,3 +21,16 @@ export async function workPaths(locale: Locale) {
     props: { project, next: projects[(i + 1) % projects.length] },
   }));
 }
+
+export interface StoreLink {
+  label: string;
+  href: string;
+}
+
+/** App Store / Google Play links of a project, in display order. Store names are the same in every language. */
+export function storeLinks({ appStore, googlePlay }: CollectionEntry<'work'>['data']): StoreLink[] {
+  return [
+    ...(appStore ? [{ label: 'App Store', href: appStore }] : []),
+    ...(googlePlay ? [{ label: 'Google Play', href: googlePlay }] : []),
+  ];
+}

@@ -3,7 +3,7 @@
 // same CMS content as the pages, so it never drifts out of date.
 import { getEntry } from 'astro:content';
 import { site, getHome, reviews, reviewText, addressLines } from './content';
-import { getWork, workSlug } from './work';
+import { getWork, storeLinks, workSlug } from './work';
 import { absoluteUrl } from './url';
 import { routes, type Locale } from '../i18n/config';
 
@@ -106,6 +106,7 @@ export async function llmsFull(): Promise<string> {
       '',
       `- Case study: ${absoluteUrl(routes.work(LOCALE, workSlug(p)))}`,
       `- Live site: ${p.data.url}`,
+      ...storeLinks(p.data).map((store) => `- ${store.label}: ${store.href}`),
       `- Category: ${p.data.category}`,
       ...(p.data.location ? [`- Location: ${p.data.location}`] : []),
       ...(p.data.year ? [`- Year: ${p.data.year}`] : []),

@@ -248,6 +248,15 @@ content:
         fields:
           - { name: src, label: Image, type: image, required: true }
           - { name: alt, label: Description (for accessibility), type: string, required: true }
+      - { name: appStore, label: App Store link (native app, optional), type: string, description: "e.g. https://apps.apple.com/app/id1234567890. Leave empty if there is no iOS app." }
+      - { name: googlePlay, label: Google Play link (native app, optional), type: string, description: "e.g. https://play.google.com/store/apps/details?id=com.example. Leave empty if there is no Android app." }
+      - name: appScreens
+        label: App screenshots (shown in phone frames)
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Screenshot (portrait phone screen), type: image, required: true }
+          - { name: alt, label: Description (for accessibility), type: string, required: true }
       - { name: services, label: Features / what's inside, type: string, list: true }
       - { name: accent, label: Accent colour (hex), type: string }
       - { name: order, label: Order (1 = first), type: number }
@@ -279,6 +288,15 @@ content:
         list: true
         fields:
           - { name: src, label: Image, type: image, required: true }
+          - { name: alt, label: Description (for accessibility), type: string, required: true }
+      - { name: appStore, label: App Store link (native app, optional), type: string, description: "e.g. https://apps.apple.com/app/id1234567890. Leave empty if there is no iOS app." }
+      - { name: googlePlay, label: Google Play link (native app, optional), type: string, description: "e.g. https://play.google.com/store/apps/details?id=com.example. Leave empty if there is no Android app." }
+      - name: appScreens
+        label: App screenshots (shown in phone frames)
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Screenshot (portrait phone screen), type: image, required: true }
           - { name: alt, label: Description (for accessibility), type: string, required: true }
       - { name: services, label: Features / what's inside, type: string, list: true }
       - { name: accent, label: Accent colour (hex), type: string }

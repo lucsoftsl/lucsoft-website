@@ -149,6 +149,27 @@ export function caseStudy(locale: Locale, path: string, project: CollectionEntry
   };
 }
 
+/** The project's native app, when it has App Store or Google Play listings. */
+export function mobileApp(path: string, project: CollectionEntry<'work'>): Node | undefined {
+  const { data } = project;
+  const stores = [data.appStore, data.googlePlay].filter((url): url is string => Boolean(url));
+  if (stores.length === 0) return undefined;
+  const systems = [...(data.appStore ? ['iOS'] : []), ...(data.googlePlay ? ['Android'] : [])];
+  return {
+    '@type': 'MobileApplication',
+    '@id': `${absoluteUrl(path)}#app`,
+    name: data.client,
+    description: data.summary,
+    url: data.url,
+    operatingSystem: systems.join(', '),
+    installUrl: stores,
+    sameAs: stores,
+    ...(data.appScreens.length > 0 && { screenshot: data.appScreens.map((screen) => absoluteUrl(screen.src)) }),
+    creator: { '@id': orgId() },
+    subjectOf: { '@id': `${absoluteUrl(path)}#case-study` },
+  };
+}
+
 /** Serializes nodes as a JSON-LD @graph, safe to embed in a <script> tag. */
 export function toJsonLd(nodes: Node[]): string {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes }).replace(/</g, '\\u003c');

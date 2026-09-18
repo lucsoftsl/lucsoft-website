@@ -6,7 +6,7 @@ import Img from '../Img.astro';
 import { withBase } from '../../lib/url';
 import { routes, type Locale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/ui';
-import { workSlug } from '../../lib/work';
+import { storeLinks, workSlug } from '../../lib/work';
 
 interface Props { locale: Locale; projects: CollectionEntry<'work'>[] }
 const { locale, projects } = Astro.props;
@@ -56,7 +56,7 @@ const t = useTranslations(locale);
               <span class="size-2 rounded-full" style={`background:${data.accent}`}></span>{data.category}
             </p>
             <h3 class="mt-4 text-4xl font-semibold tracking-[-0.04em] md:text-5xl">{data.client}</h3>
-            <p class="accent mt-1 text-2xl text-ink-2">{data.location}</p>
+            {data.location && <p class="accent mt-1 text-2xl text-ink-2">{data.location}</p>}
             <p class="mt-5 leading-relaxed text-ink-2">{data.summary}</p>
             <ul class="mt-6 flex flex-wrap gap-2">
               {data.services.slice(0, 4).map((s) => (
@@ -65,9 +65,13 @@ const t = useTranslations(locale);
             </ul>
             <div class="mt-8 flex flex-wrap items-center gap-5">
               <a href={caseUrl} class="btn btn-ink">{t('work.caseStudy')} <Icon name="arrow-right" size={16} class="arrow" /></a>
-              <a href={data.url} target="_blank" rel="noopener" class="link-underline inline-flex items-center gap-1 font-medium">
-                {t('work.visitSite')} <Icon name="arrow-up-right" size={16} />
-              </a>
+              <span class="flex flex-wrap items-center gap-x-5 gap-y-2">
+                {[{ label: t('work.visitSite'), href: data.url }, ...storeLinks(data)].map((link) => (
+                  <a href={link.href} target="_blank" rel="noopener" class="link-underline inline-flex items-center gap-1 font-medium">
+                    {link.label} <Icon name="arrow-up-right" size={16} />
+                  </a>
+                ))}
+              </span>
             </div>
           </div>
         </li>
