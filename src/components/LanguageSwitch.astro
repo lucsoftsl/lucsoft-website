@@ -1,0 +1,34 @@
+---
+import { withBase } from '../lib/url';
+import { LOCALES, LOCALE_META, type Alternates, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  alternates: Alternates;
+  /** Light-on-dark variant for the mobile menu. */
+  inverted?: boolean;
+  class?: string;
+}
+const { locale, alternates, inverted = false, class: className } = Astro.props;
+const t = useTranslations(locale);
+---
+<nav aria-label={t('nav.language')} class:list={['items-center rounded-full p-1 text-sm font-semibold', inverted ? 'flex bg-sand/10' : 'bg-ink/[0.06]', className]}>
+  {LOCALES.map((l) => (
+    l === locale ? (
+      <span aria-current="true" class:list={['rounded-full px-3 py-1.5', inverted ? 'bg-sand text-ink' : 'bg-ink text-sand']}>
+        {LOCALE_META[l].label}
+      </span>
+    ) : (
+      <a
+        href={withBase(alternates[l])}
+        hreflang={l}
+        lang={l}
+        title={LOCALE_META[l].name}
+        class:list={['rounded-full px-3 py-1.5 transition-colors', inverted ? 'text-sand/70 hover:text-sand' : 'text-ink-2 hover:text-ink']}
+      >
+        {LOCALE_META[l].label}
+      </a>
+    )
+  ))}
+</nav>

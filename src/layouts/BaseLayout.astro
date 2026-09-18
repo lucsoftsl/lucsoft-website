@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, getHome } from '../lib/content';
+import { withBase } from '../lib/url';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, routes, type Alternates, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  /** The same page in each language (site-relative, without base). */
+  alternates: Alternates;
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { locale, alternates, title, description, image = '/media/og.jpg' } = Astro.props;
+const t = useTranslations(locale);
+const home = getHome(locale);
+const pageDescription = description ?? home.meta.description;
+
+const pageTitle = title ? `${title} — ${site.company}` : `${site.company} — ${t('meta.titleSuffix')}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(withBase(image), Astro.site);
+const absolute = (path: string) => new URL(withBase(path), Astro.site).href;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.company,
+  description: home.meta.description,
+  url: absolute(routes.home(locale)),
+  telephone: site.phone,
+  email: site.email,
+  image: ogImage.href,
+  availableLanguage: ['en', 'es'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: 'ES',
+  },
+  areaServed: ['Costa del Sol', 'Málaga', 'Spain'],
+};
+---
+<!doctype html>
+<html lang={LOCALE_META[locale].htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    {LOCALES.map((l) => <link rel="alternate" hreflang={l} href={absolute(alternates[l])} />)}
+    <link rel="alternate" hreflang="x-default" href={absolute(alternates[DEFAULT_LOCALE])} />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+    <meta name="theme-color" content="#f3eee5" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.company} />
+    <meta property="og:locale" content={LOCALE_META[locale].ogLocale} />
+    {LOCALES.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />)}
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g, '\\u003c')} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="min-h-dvh overflow-x-clip">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sand">{t('a11y.skip')}</a>
+    <Header locale={locale} alternates={alternates} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <script src="../scripts/interactions.ts"></script>
+  </body>
+</html>

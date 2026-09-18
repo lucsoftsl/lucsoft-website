@@ -1,0 +1,47 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Stars from '../Stars.astro';
+import { reviews, reviewText } from '../../lib/content';
+import type { Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+<section id="reviews" aria-labelledby="reviews-title" class="bg-sand-2 py-24 md:py-36">
+  <div class="container-x">
+    <SectionHeading id="reviews-title" index="04" eyebrow={t('section.reviews')} title={t('reviews.title')} accent={t('reviews.titleAccent')} />
+    <ul class="mt-16 columns-1 gap-4 md:columns-2 lg:columns-3 [&>li]:mb-4">
+      {reviews.map((review, i) => {
+        const quote = reviewText(review, locale);
+        return (
+        <li
+          class:list={[
+            'break-inside-avoid rounded-(--radius-card) p-8',
+            review.featured ? 'bg-ink text-sand' : 'bg-paper',
+          ]}
+          data-reveal
+          style={`--i:${i % 3}`}
+        >
+          <figure>
+            <Stars rating={review.rating} label={t('reviews.stars')} />
+            <blockquote class:list={['mt-5 leading-relaxed', review.featured ? 'accent text-2xl leading-snug md:text-3xl' : 'text-lg text-ink-2']}>
+              <p lang={quote.lang}>“{quote.text}”</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <span class:list={['grid size-10 place-items-center rounded-full font-semibold', review.featured ? 'bg-terra text-ink' : 'bg-sand-2']} aria-hidden="true">
+                {review.name.charAt(0)}
+              </span>
+              <span>
+                <span class="block font-semibold">{review.name}</span>
+                {review.role && <span class:list={['block text-sm', review.featured ? 'text-sand/60' : 'text-ink-2']}>{review.role}</span>}
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

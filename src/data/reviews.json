@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Anna P.",
+    "role": "",
+    "rating": 5,
+    "language": "en",
+    "text": "I had an amazing experience working with Lucsoft. Their team was very responsive and attentive to our needs. They developed a custom solution for our business that has transformed the way we operate. We couldn't be happier with the results.",
+    "translation": "Trabajar con Lucsoft fue una experiencia increíble. Su equipo fue muy rápido en responder y muy atento a nuestras necesidades. Desarrollaron una solución a medida para nuestro negocio que ha transformado nuestra forma de trabajar. No podríamos estar más contentos con el resultado.",
+    "featured": true
+  },
+  {
+    "name": "Michael M.",
+    "role": "",
+    "rating": 5,
+    "language": "en",
+    "text": "Lucsoft provided us with a top-notch web development service. They took our vision and turned it into a beautiful and functional website that exceeded our expectations. We highly recommend them to anyone looking for a reliable and skilled development company.",
+    "translation": "Lucsoft nos ofreció un servicio de desarrollo web de primer nivel. Convirtieron nuestra idea en una web bonita y funcional que superó nuestras expectativas. Los recomendamos a cualquiera que busque una empresa de desarrollo fiable y profesional.",
+    "featured": false
+  },
+  {
+    "name": "Alexandra S.",
+    "role": "",
+    "rating": 5,
+    "language": "en",
+    "text": "Working with Lucsoft was a pleasure from start to finish. Their team was very professional, and they delivered a mobile app that exceeded our expectations. Their attention to detail and commitment to quality was outstanding.",
+    "translation": "Trabajar con Lucsoft fue un placer de principio a fin. Su equipo fue muy profesional y nos entregó una app móvil que superó nuestras expectativas. Su atención al detalle y su compromiso con la calidad fueron excelentes.",
+    "featured": false
+  }
+]

@@ -1,0 +1,21 @@
+---
+import { getHome } from '../../lib/content';
+import type { Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const home = getHome(locale);
+// Duplicated once so the -50% translate loops seamlessly.
+const items = [...home.marquee, ...home.marquee];
+---
+<section aria-label={t('marquee.label')} class="marquee overflow-hidden border-y border-ink bg-terra py-5 text-ink">
+  <ul class="marquee-track flex w-max items-center gap-8 whitespace-nowrap">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-8 text-2xl font-semibold tracking-[-0.03em] md:text-4xl" aria-hidden={i >= home.marquee.length ? 'true' : undefined}>
+        {i % 2 === 0 ? item : <span class="accent font-normal">{item}</span>}
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" class="fill-ink"><path d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0Z"/></svg>
+      </li>
+    ))}
+  </ul>
+</section>

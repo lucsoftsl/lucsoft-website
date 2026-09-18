@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { site, getHome } from '../lib/content';
+import { withBase } from '../lib/url';
+import { homeAnchor, routes, type Alternates, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  alternates: Alternates;
+}
+const { locale, alternates } = Astro.props;
+const t = useTranslations(locale);
+const { meta } = getHome(locale);
+
+const links = [
+  { label: t('nav.work'), href: homeAnchor(locale, 'work') },
+  { label: t('nav.services'), href: homeAnchor(locale, 'services') },
+  { label: t('nav.process'), href: homeAnchor(locale, 'process') },
+  { label: t('nav.reviews'), href: homeAnchor(locale, 'reviews') },
+  { label: t('nav.pricing'), href: homeAnchor(locale, 'pricing') },
+];
+---
+<header data-header class="group/header fixed inset-x-0 top-0 z-50 pt-3 transition-[padding] duration-500 ease-(--ease-out-expo) data-[scrolled]:pt-2">
+  <div class="container-x">
+    <div
+      class="flex items-center justify-between gap-4 rounded-full px-3 py-2 pl-5 transition-[background-color,box-shadow] duration-500
+        group-data-[scrolled]/header:bg-sand/80 group-data-[scrolled]/header:shadow-[0_8px_30px_-12px_rgb(19_19_19/0.25),inset_0_0_0_1px_rgb(19_19_19/0.06)] group-data-[scrolled]/header:backdrop-blur-xl"
+    >
+      <a href={withBase(routes.home(locale))} class="shrink-0" aria-label={`${site.company} — ${t('nav.home')}`}>
+        <Logo />
+      </a>
+
+      <nav aria-label={t('nav.main')} class="hidden lg:block">
+        <ul class="flex items-center gap-1 text-[0.93rem] font-medium">
+          {links.map((link) => (
+            <li>
+              <a href={link.href} class="rounded-full px-4 py-2 transition-colors hover:bg-ink/[0.06]">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <span class="hidden items-center gap-2 pr-1 text-sm font-medium xl:flex">
+          <span class="relative flex size-2.5">
+            <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none"></span>
+            <span class="relative inline-flex size-2.5 rounded-full bg-emerald-500"></span>
+          </span>
+          {meta.availability}
+        </span>
+        <LanguageSwitch locale={locale} alternates={alternates} class="flex" />
+        <a href={homeAnchor(locale, 'contact')} class="btn btn-ink hidden !py-2.5 sm:inline-flex">
+          {t('nav.letsTalk')} <Icon name="arrow-right" size={16} class="arrow" />
+        </a>
+        <button
+          type="button"
+          popovertarget="mobile-nav"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+          data-menu-toggle
+          class="grid size-11 place-items-center rounded-full bg-ink text-sand lg:hidden"
+          aria-label={t('nav.openMenu')}
+        >
+          <Icon name="menu" />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-nav" popover class="m-0 h-dvh max-h-none w-full max-w-none bg-ink p-0 text-sand backdrop:bg-ink/40 open:flex">
+  <div class="container-x flex flex-1 flex-col py-5">
+    <div class="flex items-center justify-between pl-2">
+      <Logo />
+      <button type="button" popovertarget="mobile-nav" popovertargetaction="hide" class="grid size-11 place-items-center rounded-full bg-sand text-ink" aria-label={t('nav.closeMenu')}>
+        <Icon name="close" />
+      </button>
+    </div>
+    <nav aria-label={t('nav.mobile')} class="mt-12 flex-1">
+      <ul class="space-y-1">
+        {[...links, { label: t('nav.contact'), href: homeAnchor(locale, 'contact') }].map((link, i) => (
+          <li>
+            <a href={link.href} data-close-menu class="display flex items-baseline gap-4 py-2 text-5xl">
+              <span class="accent text-lg text-terra">0{i + 1}</span>{link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="flex flex-wrap items-end justify-between gap-6 border-t border-sand/15 pt-6">
+      <div class="space-y-1 text-sand/75">
+        <p class="flex items-center gap-2 text-sand"><span class="size-2 rounded-full bg-emerald-400"></span>{meta.availability}</p>
+        <p>{site.phone}</p>
+        <p>{site.email}</p>
+      </div>
+      <LanguageSwitch locale={locale} alternates={alternates} inverted />
+    </div>
+  </div>
+</div>

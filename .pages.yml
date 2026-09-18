@@ -1,0 +1,299 @@
+# Admin panel configuration for Pages CMS (https://pagescms.org).
+# Sign in at https://app.pagescms.org with GitHub, open this repository and
+# edit content with forms. Every save is a commit; the site redeploys itself.
+
+media:
+  input: public/media
+  output: /media
+  rename: safe
+  extensions: [jpg, jpeg, png, webp, avif, svg]
+
+content:
+  - name: site
+    label: Company & contact details
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - { name: company, label: Company name, type: string, required: true }
+      - { name: brand, label: Short brand name, type: string, required: true }
+      - { name: phone, label: Phone, type: string, required: true, description: "International format, e.g. +34 692 643 322" }
+      - { name: email, label: Email, type: string, required: true }
+      - { name: whatsapp, label: Show WhatsApp button (uses the phone number), type: boolean }
+      - name: address
+        label: Address
+        type: object
+        fields:
+          - { name: street, label: Street, type: string }
+          - { name: locality, label: Town, type: string }
+          - { name: region, label: Province, type: string }
+          - { name: postalCode, label: Postal code, type: string }
+      - { name: taxId, label: CIF / tax ID (shown on legal pages), type: string }
+      - { name: registryDetails, label: Mercantile registry details (legal pages), type: string, description: "e.g. Registro Mercantil de Málaga, Tomo X, Folio Y, Hoja MA-Z" }
+      - { name: contactFormKey, label: Web3Forms access key, type: string, description: "Free key from web3forms.com. Leave empty and the form opens the visitor's email app instead." }
+
+  - name: home-en
+    label: Home page texts (English)
+    type: file
+    path: src/data/en/home.json
+    format: json
+    fields:
+      - name: meta
+        label: General
+        type: object
+        fields:
+          - { name: description, label: SEO description, type: text }
+          - { name: availability, label: Availability badge, type: string }
+          - { name: availabilityDetail, label: Availability text (contact section), type: text }
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line above the title, type: string }
+          - { name: titleBefore, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Intro text, type: text }
+          - { name: primaryCta, label: Main button, type: string }
+          - { name: secondaryCta, label: Second button, type: string }
+      - { name: marquee, label: Scrolling ticker words, type: string, list: true }
+      - name: company
+        label: '"A company, not a freelancer" section'
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Text, type: text }
+          - name: points
+            label: Points
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: services
+        label: Services
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - name: items
+            label: Services
+            type: object
+            list: true
+            fields:
+              - { name: letter, label: Big letter, type: string, pattern: '^.{1,2}$' }
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: process
+        label: Process
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - name: steps
+            label: Steps
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: pricing
+        label: Pricing
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Text, type: text }
+          - { name: points, label: Bullet points, type: string, list: true }
+          - { name: cta, label: Button, type: string }
+      - name: faq
+        label: FAQ
+        type: object
+        list: true
+        fields:
+          - { name: question, label: Question, type: string }
+          - { name: answer, label: Answer, type: text }
+
+  - name: home-es
+    label: Home page texts (Español)
+    type: file
+    path: src/data/es/home.json
+    format: json
+    fields:
+      - name: meta
+        label: General
+        type: object
+        fields:
+          - { name: description, label: SEO description, type: text }
+          - { name: availability, label: Availability badge, type: string }
+          - { name: availabilityDetail, label: Availability text (contact section), type: text }
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line above the title, type: string }
+          - { name: titleBefore, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Intro text, type: text }
+          - { name: primaryCta, label: Main button, type: string }
+          - { name: secondaryCta, label: Second button, type: string }
+      - { name: marquee, label: Scrolling ticker words, type: string, list: true }
+      - name: company
+        label: '"A company, not a freelancer" section'
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Text, type: text }
+          - name: points
+            label: Points
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: services
+        label: Services
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - name: items
+            label: Services
+            type: object
+            list: true
+            fields:
+              - { name: letter, label: Big letter, type: string, pattern: '^.{1,2}$' }
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: process
+        label: Process
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - name: steps
+            label: Steps
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: text, label: Text, type: text }
+      - name: pricing
+        label: Pricing
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: titleAccent, label: Title (italic accent part), type: string }
+          - { name: lead, label: Text, type: text }
+          - { name: points, label: Bullet points, type: string, list: true }
+          - { name: cta, label: Button, type: string }
+      - name: faq
+        label: FAQ
+        type: object
+        list: true
+        fields:
+          - { name: question, label: Question, type: string }
+          - { name: answer, label: Answer, type: text }
+
+  - name: reviews
+    label: Reviews
+    type: file
+    path: src/data/reviews.json
+    format: json
+    list: true
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: role, label: Company / role (optional), type: string }
+      - { name: rating, label: Stars (1-5), type: number, required: true, options: { min: 1, max: 5 } }
+      - name: language
+        label: Language the review was written in
+        type: select
+        required: true
+        options: { values: [en, es] }
+      - { name: text, label: Review (original words), type: text, required: true }
+      - { name: translation, label: Translation into the other language (optional), type: text }
+      - { name: featured, label: Highlight (dark card), type: boolean }
+
+  - name: work-en
+    label: Portfolio (English)
+    type: collection
+    path: src/content/work/en
+    format: yaml-frontmatter
+    description: Use the same file name in the English and Spanish folders for the same project.
+    view:
+      fields: [client, category, published]
+      sort: [order]
+    fields:
+      - { name: client, label: Client name, type: string, required: true }
+      - { name: title, label: Case study headline, type: string, required: true }
+      - { name: url, label: Live website URL, type: string, required: true, pattern: { regex: '^https?://.+', message: 'Must start with https://' } }
+      - { name: category, label: Category, type: string, required: true }
+      - { name: location, label: Location, type: string }
+      - { name: year, label: Year, type: string }
+      - { name: summary, label: Short summary (card), type: text, required: true }
+      - { name: cover, label: Cover photo, type: image, required: true }
+      - { name: screenshot, label: Desktop screenshot (16:10), type: image }
+      - name: gallery
+        label: Gallery
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Image, type: image, required: true }
+          - { name: alt, label: Description (for accessibility), type: string, required: true }
+      - { name: services, label: Features / what's inside, type: string, list: true }
+      - { name: accent, label: Accent colour (hex), type: string }
+      - { name: order, label: Order (1 = first), type: number }
+      - { name: published, label: Published, type: boolean }
+      - { name: body, label: Case study text, type: rich-text }
+
+  - name: work-es
+    label: Portfolio (Español)
+    type: collection
+    path: src/content/work/es
+    format: yaml-frontmatter
+    description: Use the same file name in the English and Spanish folders for the same project.
+    view:
+      fields: [client, category, published]
+      sort: [order]
+    fields:
+      - { name: client, label: Client name, type: string, required: true }
+      - { name: title, label: Case study headline, type: string, required: true }
+      - { name: url, label: Live website URL, type: string, required: true, pattern: { regex: '^https?://.+', message: 'Must start with https://' } }
+      - { name: category, label: Category, type: string, required: true }
+      - { name: location, label: Location, type: string }
+      - { name: year, label: Year, type: string }
+      - { name: summary, label: Short summary (card), type: text, required: true }
+      - { name: cover, label: Cover photo, type: image, required: true }
+      - { name: screenshot, label: Desktop screenshot (16:10), type: image }
+      - name: gallery
+        label: Gallery
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Image, type: image, required: true }
+          - { name: alt, label: Description (for accessibility), type: string, required: true }
+      - { name: services, label: Features / what's inside, type: string, list: true }
+      - { name: accent, label: Accent colour (hex), type: string }
+      - { name: order, label: Order (1 = first), type: number }
+      - { name: published, label: Published, type: boolean }
+      - { name: body, label: Case study text, type: rich-text }
+
+  - name: legal-en
+    label: Legal pages (English)
+    type: collection
+    path: src/content/legal/en
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: SEO description, type: string }
+      - { name: updated, label: Last updated, type: date, required: true }
+      - { name: body, label: Text, type: rich-text }
+  - name: legal-es
+    label: Legal pages (Español)
+    type: collection
+    path: src/content/legal/es
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: SEO description, type: string }
+      - { name: updated, label: Last updated, type: date, required: true }
+      - { name: body, label: Text, type: rich-text }

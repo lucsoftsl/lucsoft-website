@@ -1,0 +1,82 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '../SectionHeading.astro';
+import Icon from '../Icon.astro';
+import { withBase } from '../../lib/url';
+import { routes, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+import { workSlug } from '../../lib/work';
+
+interface Props { locale: Locale; projects: CollectionEntry<'work'>[] }
+const { locale, projects } = Astro.props;
+const t = useTranslations(locale);
+---
+<section id="work" aria-labelledby="work-title" class="container-x py-24 md:py-36">
+  <SectionHeading id="work-title" index="01" eyebrow={t('work.eyebrow')} title={t('work.title')} accent={t('work.titleAccent')} />
+
+  <ul class="mt-16 space-y-20 md:space-y-32">
+    {projects.map((project, i) => {
+      const { data } = project;
+      const flip = i % 2 === 1;
+      const caseUrl = withBase(routes.work(locale, workSlug(project)));
+      return (
+        <li class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <a
+            href={caseUrl}
+            class:list={['group relative block overflow-hidden rounded-(--radius-card) lg:col-span-8', flip && 'lg:order-2']}
+            data-reveal
+            aria-label={`${data.client} — ${t('work.caseStudy')}`}
+          >
+            <img
+              src={withBase(data.cover)}
+              alt=""
+              width="1600"
+              height="1200"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/3] w-full object-cover transition-transform duration-[1.2s] ease-(--ease-out-expo) group-hover:scale-[1.04] md:aspect-[16/10]"
+            />
+            <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"></div>
+            {data.screenshot && (
+              <img
+                src={withBase(data.screenshot)}
+                alt=""
+                width="1440"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                class:list={[
+                  'absolute bottom-6 hidden w-[46%] rounded-xl shadow-2xl ring-1 ring-sand/30 transition-transform duration-700 ease-(--ease-out-expo) group-hover:-translate-y-2 sm:block',
+                  flip ? 'left-6 -rotate-2' : 'right-6 rotate-2',
+                ]}
+              />
+            )}
+            <span class="absolute bottom-6 inline-flex items-center gap-2 rounded-full bg-sand px-4 py-2 text-sm font-medium text-ink sm:hidden left-6">
+              {t('work.viewCaseStudy')} <Icon name="arrow-right" size={16} />
+            </span>
+          </a>
+
+          <div class:list={['lg:col-span-4', flip && 'lg:order-1']} data-reveal style="--i:1">
+            <p class="eyebrow flex items-center gap-2 text-ink-2">
+              <span class="size-2 rounded-full" style={`background:${data.accent}`}></span>{data.category}
+            </p>
+            <h3 class="mt-4 text-4xl font-semibold tracking-[-0.04em] md:text-5xl">{data.client}</h3>
+            <p class="accent mt-1 text-2xl text-ink-2">{data.location}</p>
+            <p class="mt-5 leading-relaxed text-ink-2">{data.summary}</p>
+            <ul class="mt-6 flex flex-wrap gap-2">
+              {data.services.slice(0, 4).map((s) => (
+                <li class="rounded-full border border-line px-3 py-1 text-sm">{s}</li>
+              ))}
+            </ul>
+            <div class="mt-8 flex flex-wrap items-center gap-5">
+              <a href={caseUrl} class="btn btn-ink">{t('work.caseStudy')} <Icon name="arrow-right" size={16} class="arrow" /></a>
+              <a href={data.url} target="_blank" rel="noopener" class="link-underline inline-flex items-center gap-1 font-medium">
+                {t('work.visitSite')} <Icon name="arrow-up-right" size={16} />
+              </a>
+            </div>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</section>

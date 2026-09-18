@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../home/Hero.astro';
+import Marquee from '../home/Marquee.astro';
+import Work from '../home/Work.astro';
+import Company from '../home/Company.astro';
+import Services from '../home/Services.astro';
+import Process from '../home/Process.astro';
+import Reviews from '../home/Reviews.astro';
+import Pricing from '../home/Pricing.astro';
+import Contact from '../home/Contact.astro';
+import { getWork } from '../../lib/work';
+import { alternatesFor, routes, type Locale } from '../../i18n/config';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const projects = await getWork(locale);
+---
+<BaseLayout locale={locale} alternates={alternatesFor(routes.home)}>
+  <Hero locale={locale} projects={projects} />
+  <Marquee locale={locale} />
+  <Work locale={locale} projects={projects} />
+  <Company locale={locale} />
+  <Services locale={locale} />
+  <Process locale={locale} />
+  <Reviews locale={locale} />
+  <Pricing locale={locale} />
+  <Contact locale={locale} />
+</BaseLayout>

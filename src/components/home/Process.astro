@@ -1,0 +1,23 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import { getHome } from '../../lib/content';
+import type { Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { process } = getHome(locale);
+---
+<section id="process" aria-labelledby="process-title" class="container-x py-24 md:py-36">
+  <SectionHeading id="process-title" index="03" eyebrow={t('section.process')} title={process.title} accent={t('section.processAccent')} />
+  <ol class="relative mt-16 grid gap-px overflow-hidden rounded-(--radius-card) bg-line md:grid-cols-2 lg:grid-cols-5">
+    {process.steps.map((step, i) => (
+      <li class="group relative bg-sand p-7 transition-colors duration-500 hover:bg-paper lg:min-h-80" data-reveal style={`--i:${i}`}>
+        <span class="display block text-7xl text-ink/10 transition-colors duration-500 group-hover:text-terra">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="mt-8 text-xl font-semibold tracking-[-0.02em]">{step.title}</h3>
+        <p class="mt-2 leading-relaxed text-ink-2">{step.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>

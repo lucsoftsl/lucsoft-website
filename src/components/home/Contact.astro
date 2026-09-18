@@ -1,0 +1,142 @@
+---
+import Icon from '../Icon.astro';
+import { site, contact, getHome, addressLines } from '../../lib/content';
+import { withBase } from '../../lib/url';
+import { routes, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { meta } = getHome(locale);
+const projectTypes = t('form.types').split('|');
+
+// Messages the browser script needs, in the page language.
+const formMessages = {
+  errName: t('form.errName'),
+  errEmail: t('form.errEmail'),
+  errMessage: t('form.errMessage'),
+  errConsent: t('form.errConsent'),
+  success: t('form.success'),
+  mailOpened: t('form.mailOpened'),
+  failed: t('form.failed', { email: site.email }),
+  send: t('form.send'),
+  sending: t('form.sending'),
+  subject: t('form.subject'),
+};
+
+type Channel = { icon: 'phone' | 'chat' | 'mail'; label: string; value: string; href: string; external?: boolean };
+const channels: Channel[] = [
+  { icon: 'phone', label: t('contact.call'), value: site.phone, href: contact.tel },
+  ...(contact.whatsapp ? [{ icon: 'chat' as const, label: t('contact.whatsapp'), value: t('contact.whatsappValue'), href: contact.whatsapp, external: true }] : []),
+  { icon: 'mail', label: t('contact.email'), value: site.email, href: contact.mailto },
+];
+
+const field =
+  'w-full rounded-2xl border-0 bg-sand/[0.06] px-5 py-4 text-sand ring-1 ring-sand/15 transition placeholder:text-sand/40 focus:bg-sand/10 focus:outline-none focus:ring-2 focus:ring-terra';
+---
+<section id="contact" aria-labelledby="contact-title" class="grain bg-sea py-24 text-sand md:py-36">
+  <div class="container-x grid gap-16 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <p class="eyebrow flex items-center gap-3 text-sand/70" data-reveal>
+        <span class="accent text-base normal-case tracking-normal text-terra">06</span>
+        <span class="h-px w-8 bg-current opacity-40"></span>{t('contact.eyebrow')}
+      </p>
+      <h2 id="contact-title" class="display mt-6 text-display" data-reveal style="--i:1">
+        {t('contact.title')} <span class="accent text-terra">{t('contact.titleAccent')}</span>
+      </h2>
+      <p class="mt-6 max-w-md text-lg leading-relaxed text-sand/75" data-reveal style="--i:2">{meta.availabilityDetail}</p>
+
+      <ul class="mt-10 space-y-3" data-reveal style="--i:3">
+        {channels.map((c) => (
+          <li>
+            <a
+              href={c.href}
+              target={c.external ? '_blank' : undefined}
+              rel={c.external ? 'noopener' : undefined}
+              class="group flex items-center gap-4 rounded-2xl p-3 pr-5 ring-1 ring-sand/10 transition-colors hover:bg-sand hover:text-ink"
+            >
+              <span class="grid size-12 shrink-0 place-items-center rounded-xl bg-terra text-ink"><Icon name={c.icon} /></span>
+              <span class="min-w-0">
+                <span class="block text-sm text-sand/60 group-hover:text-ink/60">{c.label}</span>
+                <span class="block truncate font-medium">{c.value}</span>
+              </span>
+              <Icon name="arrow-up-right" class="ml-auto shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <address class="mt-10 flex gap-3 not-italic leading-relaxed text-sand/70" data-reveal style="--i:4">
+        <Icon name="pin" class="mt-1 shrink-0 text-terra" />
+        <span>{site.company}<br />{addressLines(locale).map((line) => (<>{line}<br /></>))}</span>
+      </address>
+    </div>
+
+    <form
+      id="contact-form"
+      class="rounded-(--radius-card) bg-sea-2/70 p-6 ring-1 ring-sand/10 backdrop-blur md:p-10 lg:col-span-7"
+      data-form-key={site.contactFormKey}
+      data-fallback-email={site.email}
+      data-messages={JSON.stringify(formMessages)}
+      novalidate
+      data-reveal
+      style="--i:2"
+    >
+      <h3 class="text-2xl font-semibold tracking-[-0.03em]">{t('form.title')}</h3>
+      <p class="mt-2 text-sand/60">{t('form.subtitle')}</p>
+
+      <fieldset class="mt-8">
+        <legend class="mb-3 text-sm text-sand/70">{t('form.need')}</legend>
+        <div class="flex flex-wrap gap-2">
+          {projectTypes.map((type, i) => (
+            <label class="cursor-pointer">
+              <input type="radio" name="project_type" value={type} class="peer sr-only" checked={i === 0} />
+              <span class="inline-block rounded-full px-4 py-2 text-sm ring-1 ring-sand/20 transition peer-checked:bg-terra peer-checked:text-ink peer-checked:ring-terra peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-terra hover:ring-sand/50">{type}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <label class="block">
+          <span class="mb-2 block text-sm text-sand/70">{t('form.name')} *</span>
+          <input class={field} type="text" name="name" autocomplete="name" required maxlength="120" />
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-sm text-sand/70">{t('form.email')} *</span>
+          <input class={field} type="email" name="email" autocomplete="email" required maxlength="200" />
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-sm text-sand/70">{t('form.phone')} <span class="text-sand/40">{t('form.optional')}</span></span>
+          <input class={field} type="tel" name="phone" autocomplete="tel" maxlength="40" />
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-sm text-sand/70">{t('form.business')} <span class="text-sand/40">{t('form.optional')}</span></span>
+          <input class={field} type="text" name="business" autocomplete="organization" maxlength="200" />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="mb-2 block text-sm text-sand/70">{t('form.message')} *</span>
+          <textarea class={`${field} min-h-36 resize-y`} name="message" required minlength="10" maxlength="5000" placeholder={t('form.messagePlaceholder')}></textarea>
+        </label>
+      </div>
+
+      <!-- Honeypot: hidden from people, tempting for bots. -->
+      <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <label class="mt-6 flex items-start gap-3 text-sm text-sand/70">
+        <input type="checkbox" name="consent" required class="mt-0.5 size-5 shrink-0 accent-terra" />
+        <span>{t('form.consentBefore', { company: site.company })} <a href={withBase(routes.privacy(locale))} class="underline decoration-sand/40 underline-offset-4 hover:text-sand">{t('form.consentLink')}</a>. *</span>
+      </label>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <button type="submit" class="btn btn-terra disabled:cursor-wait disabled:opacity-60">
+          <span data-label>{t('form.send')}</span> <Icon name="arrow-right" size={18} class="arrow" />
+        </button>
+        <p data-status role="status" aria-live="polite" class="text-sm"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="../../scripts/contact-form.ts"></script>

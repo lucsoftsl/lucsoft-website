@@ -1,0 +1,16 @@
+{
+  "company": "Lucsoft SL",
+  "brand": "Lucsoft",
+  "phone": "+34 692 643 322",
+  "email": "lucsoft.sl@gmail.com",
+  "whatsapp": true,
+  "address": {
+    "street": "Urbanización Paraíso de la Bahía, Bloque 1H",
+    "locality": "Casares Costa",
+    "region": "Málaga",
+    "postalCode": "29690"
+  },
+  "taxId": "",
+  "registryDetails": "",
+  "contactFormKey": "9843eb49-6179-4248-a716-5249e6f50a65"
+}

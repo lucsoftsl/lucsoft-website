@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "description": "Lucsoft SL is a web studio on the Costa del Sol that builds websites from A to Z: strategy, design, development, hosting, SEO and ongoing care.",
+    "availability": "Reachable almost 24/7",
+    "availabilityDetail": "Call, WhatsApp or write to us any day of the week — early mornings, late evenings and weekends included. We usually reply within a few hours."
+  },
+  "hero": {
+    "eyebrow": "Web studio · Costa del Sol, Spain",
+    "titleBefore": "Websites,",
+    "titleAccent": "from A to Z.",
+    "lead": "Lucsoft SL takes your business online end to end — strategy, design, development, hosting and care. One team, one point of contact, no loose ends.",
+    "primaryCta": "Start a project",
+    "secondaryCta": "See our work"
+  },
+  "marquee": [
+    "Strategy",
+    "UX & UI design",
+    "Web development",
+    "Online booking",
+    "E-commerce",
+    "Multilingual sites",
+    "SEO",
+    "Domains & hosting",
+    "Business email",
+    "Maintenance",
+    "iOS & Android apps"
+  ],
+  "company": {
+    "title": "A company,",
+    "titleAccent": "not a freelancer.",
+    "lead": "Lucsoft SL is a registered Spanish company. You get a team behind your project, proper contracts and invoices, and someone who picks up the phone next year too.",
+    "points": [
+      {
+        "title": "Registered Spanish S.L.",
+        "text": "Written agreements, invoices with IVA and clear ownership of everything we build for you."
+      },
+      {
+        "title": "A team, not a single point of failure",
+        "text": "Designers and developers working together, so holidays and sick days never stall your launch."
+      },
+      {
+        "title": "Web and mobile under one roof",
+        "text": "We also design and publish our own iOS and Android apps, so your website can grow into an app when you are ready."
+      }
+    ]
+  },
+  "services": {
+    "title": "Everything your website needs.",
+    "titleAccent": "Handled.",
+    "items": [
+      {
+        "letter": "A",
+        "title": "Audit & strategy",
+        "text": "We learn your business, your customers and your competitors before a single pixel is drawn."
+      },
+      {
+        "letter": "D",
+        "title": "Design",
+        "text": "Custom visual design built around your brand — never a recycled template."
+      },
+      {
+        "letter": "C",
+        "title": "Development",
+        "text": "Fast, secure, mobile-first websites built with modern tools and tested on real devices."
+      },
+      {
+        "letter": "B",
+        "title": "Bookings & shops",
+        "text": "Table reservations, room bookings, online payments and product catalogues that just work."
+      },
+      {
+        "letter": "S",
+        "title": "SEO & languages",
+        "text": "Search-ready structure, Google Business setup and multilingual content for international visitors."
+      },
+      {
+        "letter": "Z",
+        "title": "Hosting & care",
+        "text": "Domains, hosting, business email, backups, updates and edits — so you never have to think about it."
+      }
+    ]
+  },
+  "process": {
+    "title": "How we work",
+    "steps": [
+      {
+        "title": "Talk",
+        "text": "A free, no-obligation chat about your goals — by phone, WhatsApp, video or over a coffee on the coast."
+      },
+      {
+        "title": "Plan & quote",
+        "text": "A clear written proposal with scope, timeline and a tailored price. No surprises later."
+      },
+      {
+        "title": "Design",
+        "text": "You see and shape the look of your site before development starts."
+      },
+      {
+        "title": "Build & launch",
+        "text": "We develop, test, connect your domain and go live — then show you around."
+      },
+      {
+        "title": "Care",
+        "text": "Updates, changes and support whenever you need them, almost around the clock."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "No packages.",
+    "titleAccent": "Tailored quotes.",
+    "lead": "Every business is different, so we don't sell one-size-fits-all bundles. Tell us what you need and we'll put together a clear, fixed proposal — usually within a day or two.",
+    "points": [
+      "Free first conversation",
+      "Written quote before any work starts",
+      "Pay only for what you actually need",
+      "Ongoing care available on request"
+    ],
+    "cta": "Let's chat about your project"
+  },
+  "faq": [
+    {
+      "question": "How much does a website cost?",
+      "answer": "It depends on what the site needs to do — a one-page presence is a very different job from a multilingual booking site. After a short chat we send a fixed, written quote so you know the full price up front."
+    },
+    {
+      "question": "How long does it take?",
+      "answer": "We agree a timeline in the proposal. Smaller sites typically go live in a few weeks; larger projects with bookings, shops or several languages take longer."
+    },
+    {
+      "question": "Can you take over or redesign my existing website?",
+      "answer": "Yes. We can review what you have, keep what works, move your content and domain over, and rebuild the rest."
+    },
+    {
+      "question": "Who looks after the site once it's live?",
+      "answer": "We can. Hosting, updates, backups and content changes can all be handled by us, so you have one contact for everything."
+    }
+  ]
+}

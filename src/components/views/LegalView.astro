@@ -1,0 +1,55 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, contact, addressLines } from '../../lib/content';
+import { alternatesFor, routes, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  entry: 'privacy' | 'terms';
+}
+const { locale, entry } = Astro.props;
+const t = useTranslations(locale);
+const doc = await getEntry('legal', `${locale}/${entry}`);
+if (!doc) throw new Error(`Missing legal document: src/content/legal/${locale}/${entry}.md`);
+const { Content } = await render(doc);
+const updated = doc.data.updated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout locale={locale} alternates={alternatesFor(routes[entry])} title={doc.data.title} description={doc.data.description}>
+  <article class="container-x grid gap-12 pt-36 pb-24 md:pt-44 lg:grid-cols-12">
+    <header class="lg:col-span-4">
+      <div class="lg:sticky lg:top-32">
+        <p class="eyebrow text-ink-2">{t('legal.eyebrow')}</p>
+        <h1 class="display mt-4 text-title">{doc.data.title}</h1>
+        <p class="mt-4 text-ink-2">{t('legal.updated')}: <time datetime={doc.data.updated.toISOString()}>{updated}</time></p>
+
+        <dl class="mt-10 space-y-3 rounded-(--radius-card) bg-paper p-6 text-sm ring-1 ring-line">
+          <div><dt class="eyebrow text-ink-2">{t('legal.company')}</dt><dd class="mt-1 font-medium">{site.company}</dd></div>
+          {site.taxId && <div><dt class="eyebrow text-ink-2">{t('legal.taxId')}</dt><dd class="mt-1 font-medium">{site.taxId}</dd></div>}
+          <div><dt class="eyebrow text-ink-2">{t('legal.address')}</dt><dd class="mt-1">{addressLines(locale).join(', ')}</dd></div>
+          {site.registryDetails && <div><dt class="eyebrow text-ink-2">{t('legal.registry')}</dt><dd class="mt-1">{site.registryDetails}</dd></div>}
+          <div><dt class="eyebrow text-ink-2">{t('legal.email')}</dt><dd class="mt-1"><a class="link-underline" href={contact.mailto}>{site.email}</a></dd></div>
+          <div><dt class="eyebrow text-ink-2">{t('legal.phone')}</dt><dd class="mt-1"><a class="link-underline" href={contact.tel}>{site.phone}</a></dd></div>
+        </dl>
+      </div>
+    </header>
+    <div class="legal-prose max-w-3xl lg:col-span-8">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal-prose :global(h2) { margin-top: 3rem; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; }
+  .legal-prose :global(h3) { margin-top: 2rem; font-size: 1.2rem; font-weight: 600; }
+  .legal-prose :global(p), .legal-prose :global(ul) { margin-top: 1rem; line-height: 1.75; color: var(--color-ink-2); }
+  .legal-prose :global(ul) { padding-left: 1.25rem; list-style: disc; }
+  .legal-prose :global(li) { margin-top: 0.4rem; }
+  .legal-prose :global(a) { text-decoration: underline; text-underline-offset: 3px; color: var(--color-ink); }
+  .legal-prose :global(strong) { color: var(--color-ink); }
+  .legal-prose :global(table) { margin-top: 1.25rem; width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .legal-prose :global(th), .legal-prose :global(td) { border-bottom: 1px solid var(--color-line); padding: 0.75rem 0.75rem 0.75rem 0; text-align: left; vertical-align: top; color: var(--color-ink-2); }
+  .legal-prose :global(th) { color: var(--color-ink); font-weight: 600; }
+  .legal-prose > :global(:first-child) { margin-top: 0; }
+</style>

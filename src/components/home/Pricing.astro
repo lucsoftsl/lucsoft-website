@@ -1,0 +1,67 @@
+---
+import Icon from '../Icon.astro';
+import { getHome, contact } from '../../lib/content';
+import { homeAnchor, type Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { pricing, faq, meta } = getHome(locale);
+---
+<section id="pricing" aria-labelledby="pricing-title" class="container-x py-24 md:py-36">
+  <div class="grid gap-16 lg:grid-cols-12">
+    <div class="lg:col-span-6">
+      <p class="eyebrow flex items-center gap-3" data-reveal>
+        <span class="accent text-base normal-case tracking-normal text-terra-deep">05</span>
+        <span class="h-px w-8 bg-current opacity-30"></span>{t('section.pricing')}
+      </p>
+      <h2 id="pricing-title" class="display mt-6 text-display" data-reveal style="--i:1">
+        {pricing.title}<br /><span class="accent text-terra-deep">{pricing.titleAccent}</span>
+      </h2>
+      <p class="mt-8 max-w-lg text-lg leading-relaxed text-ink-2" data-reveal style="--i:2">{pricing.lead}</p>
+    </div>
+
+    <div class="relative lg:col-span-6" data-reveal style="--i:2">
+      <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-3 rounded-(--radius-card) bg-terra"></div>
+      <div class="relative rounded-(--radius-card) bg-ink p-8 text-sand md:p-12">
+        <p class="eyebrow text-sand/60">{t('pricing.price')}</p>
+        <p class="display mt-3 text-6xl md:text-7xl">{t('pricing.on')} <span class="accent text-terra">{t('pricing.demand')}</span></p>
+        <ul class="mt-10 space-y-4">
+          {pricing.points.map((point) => (
+            <li class="flex items-start gap-3 text-lg">
+              <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-terra text-ink"><Icon name="check" size={14} strokeWidth={2.5} /></span>
+              {point}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={homeAnchor(locale, 'contact')} class="btn btn-terra">{pricing.cta} <Icon name="arrow-right" size={18} class="arrow" /></a>
+          {contact.whatsapp && (
+            <a href={contact.whatsapp} target="_blank" rel="noopener" class="btn btn-ghost text-sand hover:!bg-sand hover:!text-ink">
+              <Icon name="chat" size={18} /> WhatsApp
+            </a>
+          )}
+        </div>
+        <p class="mt-6 text-sm text-sand/60">{meta.availability} — {t('pricing.weekends')}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-24 grid gap-8 border-t border-line pt-12 lg:grid-cols-12">
+    <h3 class="display text-title lg:col-span-4" data-reveal>{t('faq.title')} <span class="accent">{t('faq.titleAccent')}</span></h3>
+    <div class="divide-y divide-line lg:col-span-8">
+      {faq.map((item) => (
+        <details class="group py-2" name="faq">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-4 text-xl font-medium tracking-[-0.02em] [&::-webkit-details-marker]:hidden">
+            {item.question}
+            <span class="grid size-10 shrink-0 place-items-center rounded-full border border-line transition-[transform,background-color] duration-500 ease-(--ease-out-expo) group-open:rotate-45 group-open:bg-terra group-open:border-terra">
+              <Icon name="plus" size={18} />
+            </span>
+          </summary>
+          <p class="max-w-2xl pb-6 leading-relaxed text-ink-2">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

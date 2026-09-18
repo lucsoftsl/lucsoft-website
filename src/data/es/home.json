@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "description": "Lucsoft SL es un estudio web en la Costa del Sol que crea páginas web de la A a la Z: estrategia, diseño, desarrollo, hosting, SEO y mantenimiento.",
+    "availability": "Disponibles casi 24/7",
+    "availabilityDetail": "Llámanos, escríbenos por WhatsApp o por email cualquier día de la semana: a primera hora, por la noche y también los fines de semana. Normalmente respondemos en pocas horas."
+  },
+  "hero": {
+    "eyebrow": "Estudio web · Costa del Sol, España",
+    "titleBefore": "Páginas web,",
+    "titleAccent": "de la A a la Z.",
+    "lead": "Lucsoft SL lleva tu negocio a internet de principio a fin: estrategia, diseño, desarrollo, hosting y mantenimiento. Un solo equipo, un solo contacto y nada a medias.",
+    "primaryCta": "Empezar un proyecto",
+    "secondaryCta": "Ver proyectos"
+  },
+  "marquee": [
+    "Estrategia",
+    "Diseño UX y UI",
+    "Desarrollo web",
+    "Reservas online",
+    "Tiendas online",
+    "Webs multidioma",
+    "SEO",
+    "Dominios y hosting",
+    "Email profesional",
+    "Mantenimiento",
+    "Apps iOS y Android"
+  ],
+  "company": {
+    "title": "Una empresa,",
+    "titleAccent": "no un freelance.",
+    "lead": "Lucsoft SL es una sociedad limitada española. Detrás de tu proyecto hay un equipo, contratos y facturas en regla, y alguien que te coge el teléfono también el año que viene.",
+    "points": [
+      {
+        "title": "Sociedad limitada española",
+        "text": "Acuerdos por escrito, facturas con IVA y propiedad clara de todo lo que creamos para ti."
+      },
+      {
+        "title": "Un equipo, no una sola persona",
+        "text": "Diseñadores y desarrolladores trabajando juntos, para que unas vacaciones o una baja nunca frenen tu lanzamiento."
+      },
+      {
+        "title": "Web y móvil bajo el mismo techo",
+        "text": "También diseñamos y publicamos nuestras propias apps para iOS y Android, así que tu web puede convertirse en app cuando estés listo."
+      }
+    ]
+  },
+  "services": {
+    "title": "Todo lo que tu web necesita.",
+    "titleAccent": "Resuelto.",
+    "items": [
+      { "letter": "A", "title": "Análisis y estrategia", "text": "Conocemos tu negocio, tus clientes y tu competencia antes de dibujar un solo píxel." },
+      { "letter": "D", "title": "Diseño", "text": "Diseño visual a medida, creado en torno a tu marca. Nunca una plantilla reciclada." },
+      { "letter": "C", "title": "Desarrollo", "text": "Webs rápidas, seguras y pensadas primero para el móvil, hechas con herramientas modernas y probadas en dispositivos reales." },
+      { "letter": "R", "title": "Reservas y tiendas", "text": "Reservas de mesa o de habitaciones, pagos online y catálogos de productos que simplemente funcionan." },
+      { "letter": "S", "title": "SEO e idiomas", "text": "Estructura preparada para Google, alta en Google Business y contenido en varios idiomas para visitantes internacionales." },
+      { "letter": "Z", "title": "Hosting y mantenimiento", "text": "Dominio, hosting, email profesional, copias de seguridad, actualizaciones y cambios, para que no tengas que preocuparte de nada." }
+    ]
+  },
+  "process": {
+    "title": "Cómo trabajamos",
+    "steps": [
+      { "title": "Hablamos", "text": "Una charla gratuita y sin compromiso sobre tus objetivos: por teléfono, WhatsApp, videollamada o con un café en la costa." },
+      { "title": "Plan y presupuesto", "text": "Una propuesta clara por escrito con alcance, plazos y un precio a medida. Sin sorpresas después." },
+      { "title": "Diseño", "text": "Ves y ajustas el aspecto de tu web antes de empezar el desarrollo." },
+      { "title": "Desarrollo y lanzamiento", "text": "Desarrollamos, probamos, conectamos tu dominio y publicamos. Después te enseñamos a manejarla." },
+      { "title": "Mantenimiento", "text": "Actualizaciones, cambios y soporte cuando lo necesites, casi a cualquier hora." }
+    ]
+  },
+  "pricing": {
+    "title": "Sin paquetes.",
+    "titleAccent": "Presupuestos a medida.",
+    "lead": "Cada negocio es diferente, así que no vendemos paquetes cerrados. Cuéntanos qué necesitas y te preparamos una propuesta clara y cerrada, normalmente en uno o dos días.",
+    "points": [
+      "Primera conversación gratuita",
+      "Presupuesto por escrito antes de empezar",
+      "Pagas solo por lo que realmente necesitas",
+      "Mantenimiento disponible si lo necesitas"
+    ],
+    "cta": "Hablemos de tu proyecto"
+  },
+  "faq": [
+    { "question": "¿Cuánto cuesta una página web?", "answer": "Depende de lo que tenga que hacer la web: una página de presentación no tiene nada que ver con una web multiidioma con reservas. Tras una breve charla te enviamos un presupuesto cerrado por escrito, para que conozcas el precio total desde el principio." },
+    { "question": "¿Cuánto tiempo se tarda?", "answer": "Acordamos los plazos en la propuesta. Las webs sencillas suelen estar online en pocas semanas; los proyectos con reservas, tienda o varios idiomas llevan más tiempo." },
+    { "question": "¿Podéis encargaros de mi web actual o rediseñarla?", "answer": "Sí. Revisamos lo que tienes, mantenemos lo que funciona, trasladamos tu contenido y tu dominio, y rehacemos el resto." },
+    { "question": "¿Quién se ocupa de la web una vez publicada?", "answer": "Nosotros, si quieres. Hosting, actualizaciones, copias de seguridad y cambios de contenido: un solo contacto para todo." }
+  ]
+}
