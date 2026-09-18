@@ -1,6 +1,6 @@
 # Lucsoft SL — website
 
-Presentation site for Lucsoft SL: "Websites, from A to Z". Static site built with [Astro](https://astro.build) and Tailwind CSS, hosted on GitHub Pages. It has no database and no API.
+Presentation site for Lucsoft SL: "Websites, from A to Z". Static site built with [Astro](https://astro.build) and Tailwind CSS, hosted on [Vercel](https://lucsoft-website.vercel.app). It has no database and no API.
 
 ## Editing content (admin panel)
 
@@ -31,21 +31,19 @@ The form sends through [Web3Forms](https://web3forms.com), a free service with n
 
 ## Hosted legal pages for other projects
 
-`root/` holds the privacy and terms pages for the apps and projects hosted here (FoodSync, AlexaFit, etc.). They are copied into the build **unchanged**, so URLs like `/lucsoft-website/root/foodsync-privacy.html` keep working. `app-ads.txt` and `output1.pdf` are copied the same way. Keep editing them in place.
+`root/` holds the privacy and terms pages for the apps and projects hosted here (FoodSync, AlexaFit, etc.). They are copied into the build **unchanged**, so URLs like `/root/foodsync-privacy.html` keep working. `app-ads.txt` and `output1.pdf` are copied the same way. Keep editing them in place.
 
 ## Development
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/lucsoft-website/
+npm run dev      # http://localhost:4321/
 npm run build    # type-check + build to dist/
 npm run preview
 ```
 
 ## Deployment
 
-`.github/workflows/deploy.yml` builds and publishes on every push to `master`.
+Vercel builds and deploys every push to `master` automatically (framework preset: Astro, output `dist/`). Edits saved in the admin panel are commits too, so they go live the same way.
 
-**One-time switch:** in GitHub → *Settings → Pages → Build and deployment*, set **Source** to **GitHub Actions**. The old "deploy from branch" mode would publish the raw source files.
-
-**Custom domain:** add the domain in the Pages settings, then set `SITE_URL=https://your-domain` and `BASE_PATH=/` as `env` on the build step in the workflow.
+**Custom domain:** add it in Vercel → Project → Settings → Domains. The build picks it up automatically for canonical URLs, hreflang and the sitemap.
