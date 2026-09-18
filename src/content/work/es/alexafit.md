@@ -4,7 +4,7 @@ client: AlexaFit
 url: https://www.alexa-fit.com/
 category: App de nutrición · iOS, Android y web
 year: 2025
-summary: "Una app de nutrición para iPhone y Android —contador de calorías, nutricionista con IA y feedback diario de un coach— con una web rápida en inglés, español y rumano."
+summary: "Una app de nutrición para iPhone y Android —control de calorías, nutricionista IA y feedback diario de un coach— con una web rápida en inglés, español y rumano."
 cover: /media/portfolio/alexafit/00-app-screens-cover.webp
 screenshot: /media/portfolio/alexafit/alexafit-desktop.webp
 appStore: "https://apps.apple.com/app/alexafit/id6736826072"

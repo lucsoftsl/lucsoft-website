@@ -4,14 +4,16 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import legacyFiles from './integrations/legacy-files.mjs';
 import responsiveImages from './integrations/responsive-images.mjs';
+import { gitLastmod } from './integrations/lastmod.mjs';
 import rehypeBaseLinks from './integrations/rehype-base-links.mjs';
 
 // Deployed on Vercel at the domain root. During Vercel builds the production
 // domain (including a custom domain, once added) is picked up automatically.
 // SITE_URL / BASE_PATH override both, e.g. for hosting under a sub-path.
 const vercelDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-const site = process.env.SITE_URL ?? (vercelDomain ? `https://${vercelDomain}` : 'https://lucsoft-website.vercel.app');
+const site = process.env.SITE_URL ?? (vercelDomain ? `https://${vercelDomain}` : 'https://lucsoft.es');
 const base = process.env.BASE_PATH ?? '/';
+const lastmod = gitLastmod({ base });
 
 export default defineConfig({
   site,
@@ -20,7 +22,11 @@ export default defineConfig({
   // internal links and the sitemap all use this form, and vercel.json
   // redirects the slashed variant to it.
   trailingSlash: 'never',
-  integrations: [sitemap(), responsiveImages(), legacyFiles(['root', 'app-ads.txt', 'output1.pdf'])],
+  integrations: [
+    sitemap({ serialize: (item) => ({ ...item, lastmod: lastmod(item.url) }) }),
+    responsiveImages(),
+    legacyFiles(['root', 'app-ads.txt', 'output1.pdf']),
+  ],
   markdown: { rehypePlugins: [[rehypeBaseLinks, { base }]] },
   vite: { plugins: [tailwindcss()] },
 });

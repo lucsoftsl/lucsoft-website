@@ -33,7 +33,8 @@ The form sends through [Web3Forms](https://web3forms.com), a free service with n
 
 Handled automatically on every build, from the same content as the pages:
 
-- **Search basics:** one URL per page without a trailing slash (`/privacy`; `/privacy/` redirects), canonical and `hreflang` links, `sitemap-index.xml`, `robots.txt`, and Open Graph tags for link previews.
+- **Search basics:** one URL per page without a trailing slash (`/privacy`; `/privacy/` redirects), canonical and `hreflang` links, the sitemap at <https://lucsoft.es/sitemap-index.xml> (built on every deploy, not a file in the repo), `robots.txt`, and Open Graph tags for link previews. `www.lucsoft.es` and `lucsoft-website.vercel.app` redirect to `lucsoft.es`.
+- **Freshness for Bing:** each sitemap entry has a `<lastmod>` date: the last git commit that changed that page's content. This needs the Vercel environment variable `VERCEL_DEEP_CLONE=true`. Without it the dates are left out, and the build log says so. After every production deploy, the GitHub Action `.github/workflows/indexnow.yml` tells Bing via [IndexNow](https://www.indexnow.org) which pages were added, changed or removed. Its key is the file `public/100bbf7ebe233138546e7f64157ed661.txt`; keep it.
 - **Structured data:** JSON-LD for the company and its services, each page, breadcrumbs, the FAQ and every case study. Check it at <https://search.google.com/test/rich-results>.
 - **AI assistants:** `robots.txt` explicitly allows ChatGPT, Claude, Perplexity, Gemini and others. `/llms.txt` and `/llms-full.txt` give them the site as plain text.
 - **Images:** portfolio images get smaller WebP copies (`/_img/…`) so phones download less. Upload full-size images to the CMS; there's no need to resize them first.
@@ -43,7 +44,7 @@ In the CMS, the **SEO title** and **SEO description** of each home page are the 
 After going live on the final domain:
 
 1. Add the domain to [Google Search Console](https://search.google.com/search-console) (DNS verification, or paste the HTML-tag code into the CMS) and submit `https://<domain>/sitemap-index.xml`.
-2. Import the site into [Bing Webmaster Tools](https://www.bing.com/webmasters) from Search Console. ChatGPT search relies partly on Bing's index.
+2. Import the site into [Bing Webmaster Tools](https://www.bing.com/webmasters) from Search Console, and submit the same sitemap. Bing's index also feeds Copilot and ChatGPT search. IndexNow submissions show up under **IndexNow** there.
 3. Create or claim the Google Business Profile with the same name, address and phone number as the site, then add its URL to the CMS profiles.
 
 ## Hosted legal pages for other projects

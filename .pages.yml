@@ -238,7 +238,7 @@ content:
       - { name: category, label: Category, type: string, required: true }
       - { name: location, label: Location, type: string }
       - { name: year, label: Year, type: string }
-      - { name: summary, label: Short summary (card), type: text, required: true }
+      - { name: summary, label: Short summary (card), type: text, required: true, description: "Also the description shown in Google and Bing — keep it under 160 characters." }
       - { name: cover, label: Cover photo, type: image, required: true }
       - { name: screenshot, label: Desktop screenshot (16:10), type: image }
       - name: gallery
@@ -279,7 +279,7 @@ content:
       - { name: category, label: Category, type: string, required: true }
       - { name: location, label: Location, type: string }
       - { name: year, label: Year, type: string }
-      - { name: summary, label: Short summary (card), type: text, required: true }
+      - { name: summary, label: Short summary (card), type: text, required: true, description: "Also the description shown in Google and Bing — keep it under 160 characters." }
       - { name: cover, label: Cover photo, type: image, required: true }
       - { name: screenshot, label: Desktop screenshot (16:10), type: image }
       - name: gallery

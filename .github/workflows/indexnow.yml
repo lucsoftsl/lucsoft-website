@@ -1,0 +1,45 @@
+# After each successful production deploy on Vercel, tells Bing (IndexNow) which
+# pages were added, changed or removed. See scripts/indexnow.mjs.
+name: IndexNow
+
+on:
+  deployment_status:
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    # Vercel names its production environment "Production" (or "Production – <project>").
+    if: github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.deployment.sha }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Same commit and domain as the live site, so the fingerprints match what Bing will see.
+      - run: npx astro build
+
+      - uses: actions/cache/restore@v6
+        with:
+          path: .indexnow-state.json
+          key: indexnow-state-${{ github.run_id }}
+          restore-keys: indexnow-state-
+
+      - run: node scripts/indexnow.mjs .indexnow-state.json
+
+      - uses: actions/cache/save@v6
+        with:
+          path: .indexnow-state.json
+          key: indexnow-state-${{ github.run_id }}

@@ -5,7 +5,7 @@ url: https://www.potsandpans.es/
 category: Tienda online · Panadería casera
 location: Sotogrande, Cádiz
 year: 2026
-summary: "Una panadería online cálida y bilingüe para una panadera casera registrada: pan de masa madre, ciabatta y repostería por encargo, para recoger o con entrega local."
+summary: "Una panadería online cálida y bilingüe para una panadera casera registrada: masa madre, ciabatta y repostería por encargo, para recoger o con entrega local."
 cover: /media/portfolio/potsandpans/01-wheat-scored-sourdough-boule.webp
 screenshot: /media/portfolio/potsandpans/potsandpans-desktop.webp
 accent: "#4A2A22"
