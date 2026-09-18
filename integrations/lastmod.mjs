@@ -1,9 +1,14 @@
 // <lastmod> for the sitemap: when a page's content last changed, taken from the
 // git history of the content files it is built from (design and code changes
-// don't count). Bing and Google ignore lastmod they can't trust, so it is left
-// out rather than guessed when the history is incomplete — as in Vercel's
-// default 10-commit clone. Set VERCEL_DEEP_CLONE=true on Vercel to get it.
+// don't count). Bing and Google ignore lastmod they can't trust, so a date is
+// only given when git knows it exactly.
+//
+// Vercel builds from a shallow clone (the last 10 commits). Git sees the oldest
+// commit of that clone as adding every file, so a page whose last change is at
+// or before that boundary has an unknown date and gets no <lastmod>. Pages
+// edited within the last commits get their exact date.
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
 /** Page path → content files. Mirrors the routes in src/i18n/config.ts. */
 const SOURCES = [
@@ -26,28 +31,40 @@ function git(args) {
   }
 }
 
+/** Commits at the edge of a shallow clone; empty for a full clone. */
+function shallowBoundary() {
+  const file = git(['rev-parse', '--git-path', 'shallow']);
+  try {
+    return new Set(readFileSync(file ?? '', 'utf8').split('\n').filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
 /**
  * Returns a lookup from absolute page URL to its last content change (ISO 8601),
- * or undefined when unknown. History is checked on first use, i.e. during the build.
+ * or undefined when unknown. Git is first consulted on use, i.e. during the build.
  * @param {{ base: string }} options
  * @returns {(url: string) => string | undefined}
  */
 export function gitLastmod({ base }) {
   const prefix = base.replace(/\/$/, '');
-  /** @type {boolean | undefined} */
-  let complete;
+  /** @type {Set<string> | null | undefined} null = no git history */
+  let boundary;
   return (url) => {
-    if (complete === undefined) {
-      complete = git(['rev-parse', '--is-shallow-repository']) === 'false';
-      if (!complete) console.warn('[lastmod] Git history is shallow or missing; sitemap <lastmod> left out. On Vercel, set VERCEL_DEEP_CLONE=true.');
+    if (boundary === undefined) {
+      boundary = git(['rev-parse', '--git-dir']) ? shallowBoundary() : null;
+      if (!boundary) console.warn('[lastmod] No git history available; sitemap <lastmod> left out.');
     }
-    if (!complete) return undefined;
+    if (!boundary) return undefined;
 
     let path = new URL(url).pathname;
     if (prefix && path.startsWith(prefix)) path = path.slice(prefix.length) || '/';
     for (const [pattern, files] of SOURCES) {
       const match = path.match(pattern);
-      if (match) return git(['log', '-1', '--format=%cI', '--', ...files(...match.slice(1))]) || undefined;
+      if (!match) continue;
+      const [hash, date] = (git(['log', '-1', '--format=%H %cI', '--', ...files(...match.slice(1))]) ?? '').split(' ');
+      return hash && date && !boundary.has(hash) ? date : undefined;
     }
     return undefined;
   };
