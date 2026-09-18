@@ -45,7 +45,7 @@ const [front, back] = projects;
         <div class="relative lg:col-span-7" aria-label={t('hero.recent')}>
           {back?.data.screenshot && (
             <div class="absolute -top-10 right-0 hidden w-[72%] rotate-[4deg] opacity-95 md:block" data-reveal style="--i:4">
-              <BrowserFrame src={back.data.screenshot} alt={`${back.data.client} — ${t('work.website')}`} url={back.data.url} />
+              <BrowserFrame src={back.data.screenshot} alt={`${back.data.client} — ${t('work.website')}`} url={back.data.url} sizes="(min-width: 1408px) 560px, (min-width: 1024px) 40vw, 72vw" />
             </div>
           )}
           <a
@@ -54,7 +54,7 @@ const [front, back] = projects;
             data-reveal
             style="--i:3"
           >
-            <BrowserFrame src={front.data.screenshot ?? front.data.cover} alt={`${front.data.client} — ${t('work.website')}`} url={front.data.url} eager />
+            <BrowserFrame src={front.data.screenshot ?? front.data.cover} alt={`${front.data.client} — ${t('work.website')}`} url={front.data.url} sizes="(min-width: 1408px) 640px, (min-width: 1024px) 46vw, (min-width: 768px) 82vw, 100vw" eager />
             <span class="absolute -bottom-5 left-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-sand shadow-lg">
               <span class="accent text-base text-terra">{t('hero.latest')}</span> {front.data.client}
               <Icon name="arrow-up-right" size={16} class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

@@ -3,7 +3,6 @@
 import type { Locale } from './config';
 
 const en = {
-  'meta.titleSuffix': 'Websites from A to Z · Costa del Sol',
   'nav.main': 'Main',
   'nav.mobile': 'Mobile',
   'nav.work': 'Work',
@@ -39,7 +38,7 @@ const en = {
   'work.inside': "What's inside",
   'work.gallery': 'Gallery',
   'work.next': 'Next project',
-  'work.pageTitle': 'Case study',
+  'work.pageTitle': 'Web design case study',
   'work.homepage': 'homepage',
   'work.website': 'website',
   'work.cta': 'Want a site like this?',
@@ -57,7 +56,7 @@ const en = {
   'pricing.price': 'Price',
   'pricing.on': 'On',
   'pricing.demand': 'demand',
-  'pricing.weekends': 'including weekends.',
+  'pricing.response': 'one of our colleagues will contact you as soon as possible.',
   'faq.title': 'Good',
   'faq.titleAccent': 'questions',
 
@@ -69,7 +68,7 @@ const en = {
   'contact.whatsappValue': 'Message us',
   'contact.email': 'Email',
   'form.title': 'Tell us about your project',
-  'form.subtitle': "We'll get back to you with next steps — usually within a few hours.",
+  'form.subtitle': "We'll get back to you with next steps as soon as possible.",
   'form.need': 'What do you need?',
   'form.types': 'New website|Redesign|Online shop|Booking system|Mobile app|Something else',
   'form.name': 'Name',
@@ -122,7 +121,6 @@ const en = {
 export type UiKey = keyof typeof en;
 
 const es: Record<UiKey, string> = {
-  'meta.titleSuffix': 'Páginas web de la A a la Z · Costa del Sol',
   'nav.main': 'Principal',
   'nav.mobile': 'Móvil',
   'nav.work': 'Proyectos',
@@ -158,7 +156,7 @@ const es: Record<UiKey, string> = {
   'work.inside': 'Qué incluye',
   'work.gallery': 'Galería',
   'work.next': 'Siguiente proyecto',
-  'work.pageTitle': 'Proyecto',
+  'work.pageTitle': 'Proyecto de diseño web',
   'work.homepage': 'página de inicio',
   'work.website': 'web',
   'work.cta': '¿Quieres una web así?',
@@ -176,7 +174,7 @@ const es: Record<UiKey, string> = {
   'pricing.price': 'Precio',
   'pricing.on': 'A',
   'pricing.demand': 'medida',
-  'pricing.weekends': 'también los fines de semana.',
+  'pricing.response': 'uno de nuestros compañeros se pondrá en contacto contigo lo antes posible.',
   'faq.title': 'Preguntas',
   'faq.titleAccent': 'frecuentes',
 
@@ -188,7 +186,7 @@ const es: Record<UiKey, string> = {
   'contact.whatsappValue': 'Escríbenos',
   'contact.email': 'Email',
   'form.title': 'Cuéntanos tu proyecto',
-  'form.subtitle': 'Te responderemos con los siguientes pasos, normalmente en pocas horas.',
+  'form.subtitle': 'Te responderemos con los siguientes pasos lo antes posible.',
   'form.need': '¿Qué necesitas?',
   'form.types': 'Web nueva|Rediseño|Tienda online|Sistema de reservas|App móvil|Otra cosa',
   'form.name': 'Nombre',

@@ -10,13 +10,14 @@ import Reviews from '../home/Reviews.astro';
 import Pricing from '../home/Pricing.astro';
 import Contact from '../home/Contact.astro';
 import { getWork } from '../../lib/work';
+import { faqPage } from '../../lib/schema';
 import { alternatesFor, routes, type Locale } from '../../i18n/config';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const projects = await getWork(locale);
 ---
-<BaseLayout locale={locale} alternates={alternatesFor(routes.home)}>
+<BaseLayout locale={locale} alternates={alternatesFor(routes.home)} schema={[faqPage(locale)]}>
   <Hero locale={locale} projects={projects} />
   <Marquee locale={locale} />
   <Work locale={locale} projects={projects} />

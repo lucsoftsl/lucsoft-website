@@ -3,49 +3,52 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site, getHome } from '../lib/content';
-import { withBase } from '../lib/url';
-import { DEFAULT_LOCALE, LOCALES, LOCALE_META, routes, type Alternates, type Locale } from '../i18n/config';
+import { imageSize } from '../lib/images';
+import { absoluteUrl, withBase } from '../lib/url';
+import { breadcrumbs, organization, toJsonLd, webPage, website } from '../lib/schema';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, type Alternates, type Locale } from '../i18n/config';
 import { useTranslations } from '../i18n/ui';
 
 interface Props {
   locale: Locale;
   /** The same page in each language (site-relative, without base). */
   alternates: Alternates;
+  /** Page title without the company name; the home page uses its SEO title from the CMS. */
   title?: string;
   description?: string;
+  /** Social sharing image in public/. */
   image?: string;
+  imageAlt?: string;
+  /** Short label for the breadcrumb trail (Home › label) in search results. */
+  breadcrumb?: string;
+  /** Extra schema.org nodes for this page. */
+  schema?: Record<string, unknown>[];
+  /** Keep the page out of search results (e.g. the 404 page). */
+  noindex?: boolean;
 }
 
-const { locale, alternates, title, description, image = '/media/og.jpg' } = Astro.props;
+const { locale, alternates, title, description, image = '/media/og.jpg', imageAlt, breadcrumb, schema = [], noindex = false } = Astro.props;
 const t = useTranslations(locale);
 const home = getHome(locale);
+const pageTitle = title ? `${title} | ${site.company}` : home.meta.title;
 const pageDescription = description ?? home.meta.description;
 
-const pageTitle = title ? `${title} — ${site.company}` : `${site.company} — ${t('meta.titleSuffix')}`;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(withBase(image), Astro.site);
-const absolute = (path: string) => new URL(withBase(path), Astro.site).href;
+// Canonical, og:url and hreflang all come from the route table so they agree
+// with each other and with the sitemap.
+const path = alternates[locale];
+const canonical = absoluteUrl(path);
+const ogImage = absoluteUrl(image);
+const ogImageSize = await imageSize(image);
 
-const organization = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: site.company,
-  description: home.meta.description,
-  url: absolute(routes.home(locale)),
-  telephone: site.phone,
-  email: site.email,
-  image: ogImage.href,
-  availableLanguage: ['en', 'es'],
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    addressLocality: site.address.locality,
-    addressRegion: site.address.region,
-    postalCode: site.address.postalCode,
-    addressCountry: 'ES',
-  },
-  areaServed: ['Costa del Sol', 'Málaga', 'Spain'],
-};
+// Pages kept out of search describe only the company, not themselves.
+const pageNodes = noindex
+  ? []
+  : [
+      webPage({ locale, path, title: pageTitle, description: pageDescription, image: ogImage, hasBreadcrumb: Boolean(breadcrumb) }),
+      ...(breadcrumb ? [breadcrumbs(locale, path, breadcrumb)] : []),
+      ...schema,
+    ];
+const jsonLd = toJsonLd([organization(locale), website(), ...pageNodes]);
 ---
 <!doctype html>
 <html lang={LOCALE_META[locale].htmlLang}>
@@ -54,12 +57,23 @@ const organization = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="canonical" href={canonical} />
-    {LOCALES.map((l) => <link rel="alternate" hreflang={l} href={absolute(alternates[l])} />)}
-    <link rel="alternate" hreflang="x-default" href={absolute(alternates[DEFAULT_LOCALE])} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href={canonical} />
+        {LOCALES.map((l) => <link rel="alternate" hreflang={l} href={absoluteUrl(alternates[l])} />)}
+        <link rel="alternate" hreflang="x-default" href={absoluteUrl(alternates[DEFAULT_LOCALE])} />
+      </>
+    )}
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="48x48" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <meta name="theme-color" content="#f3eee5" />
+    {site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+    {site.verification.bing && <meta name="msvalidate.01" content={site.verification.bing} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.company} />
@@ -69,9 +83,12 @@ const organization = {
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(ogImageSize.width)} />
+    <meta property="og:image:height" content={String(ogImageSize.height)} />
+    <meta property="og:image:alt" content={imageAlt ?? pageTitle} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g, '\\u003c')} />
+    <script type="application/ld+json" set:html={jsonLd} />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class="min-h-dvh overflow-x-clip">

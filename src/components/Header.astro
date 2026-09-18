@@ -29,8 +29,8 @@ const links = [
       class="flex items-center justify-between gap-4 rounded-full px-3 py-2 pl-5 transition-[background-color,box-shadow] duration-500
         group-data-[scrolled]/header:bg-sand/80 group-data-[scrolled]/header:shadow-[0_8px_30px_-12px_rgb(19_19_19/0.25),inset_0_0_0_1px_rgb(19_19_19/0.06)] group-data-[scrolled]/header:backdrop-blur-xl"
     >
-      <a href={withBase(routes.home(locale))} class="shrink-0" aria-label={`${site.company} — ${t('nav.home')}`}>
-        <Logo />
+      <a href={withBase(routes.home(locale))} class="shrink-0">
+        <Logo /><span class="sr-only"> — {t('nav.home')}</span>
       </a>
 
       <nav aria-label={t('nav.main')} class="hidden lg:block">

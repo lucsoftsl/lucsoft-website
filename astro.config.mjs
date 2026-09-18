@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import legacyFiles from './integrations/legacy-files.mjs';
+import responsiveImages from './integrations/responsive-images.mjs';
 import rehypeBaseLinks from './integrations/rehype-base-links.mjs';
 
 // Deployed on Vercel at the domain root. During Vercel builds the production
@@ -15,8 +16,11 @@ const base = process.env.BASE_PATH ?? '/';
 export default defineConfig({
   site,
   base,
-  trailingSlash: 'ignore',
-  integrations: [sitemap(), legacyFiles(['root', 'app-ads.txt', 'output1.pdf'])],
+  // One URL per page: "/privacy", never "/privacy/". Canonicals, hreflang,
+  // internal links and the sitemap all use this form, and vercel.json
+  // redirects the slashed variant to it.
+  trailingSlash: 'never',
+  integrations: [sitemap(), responsiveImages(), legacyFiles(['root', 'app-ads.txt', 'output1.pdf'])],
   markdown: { rehypePlugins: [[rehypeBaseLinks, { base }]] },
   vite: { plugins: [tailwindcss()] },
 });

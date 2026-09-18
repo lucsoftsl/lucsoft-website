@@ -16,7 +16,7 @@ if (!doc) throw new Error(`Missing legal document: src/content/legal/${locale}/$
 const { Content } = await render(doc);
 const updated = doc.data.updated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
-<BaseLayout locale={locale} alternates={alternatesFor(routes[entry])} title={doc.data.title} description={doc.data.description}>
+<BaseLayout locale={locale} alternates={alternatesFor(routes[entry])} title={doc.data.title} description={doc.data.description} breadcrumb={doc.data.title}>
   <article class="container-x grid gap-12 pt-36 pb-24 md:pt-44 lg:grid-cols-12">
     <header class="lg:col-span-4">
       <div class="lg:sticky lg:top-32">

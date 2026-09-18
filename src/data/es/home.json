@@ -1,8 +1,9 @@
 {
   "meta": {
+    "title": "Diseño y desarrollo web en la Costa del Sol | Lucsoft SL",
     "description": "Lucsoft SL es un estudio web en la Costa del Sol que crea páginas web de la A a la Z: estrategia, diseño, desarrollo, hosting, SEO y mantenimiento.",
-    "availability": "Disponibles casi 24/7",
-    "availabilityDetail": "Llámanos, escríbenos por WhatsApp o por email cualquier día de la semana: a primera hora, por la noche y también los fines de semana. Normalmente respondemos en pocas horas."
+    "availability": "Disponibles 24/7",
+    "availabilityDetail": "Llámanos, escríbenos por WhatsApp o por email a cualquier hora, de día o de noche, también los fines de semana. Uno de nuestros compañeros se pondrá en contacto contigo lo antes posible."
   },
   "hero": {
     "eyebrow": "Estudio web · Costa del Sol, España",
@@ -63,7 +64,7 @@
       { "title": "Plan y presupuesto", "text": "Una propuesta clara por escrito con alcance, plazos y un precio a medida. Sin sorpresas después." },
       { "title": "Diseño", "text": "Ves y ajustas el aspecto de tu web antes de empezar el desarrollo." },
       { "title": "Desarrollo y lanzamiento", "text": "Desarrollamos, probamos, conectamos tu dominio y publicamos. Después te enseñamos a manejarla." },
-      { "title": "Mantenimiento", "text": "Actualizaciones, cambios y soporte cuando lo necesites, casi a cualquier hora." }
+      { "title": "Mantenimiento", "text": "Actualizaciones, cambios y soporte cuando lo necesites, 24/7." }
     ]
   },
   "pricing": {

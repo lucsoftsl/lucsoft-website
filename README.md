@@ -29,9 +29,26 @@ If an edit breaks the expected format, the build fails with a message naming the
 
 The form sends through [Web3Forms](https://web3forms.com), a free service with no backend to run. The access key is set in **Company & contact details → Web3Forms access key**. If that field is emptied, the form falls back to opening the visitor's email app with the message pre-filled. Enquiries include the language the visitor used.
 
+## SEO and AI indexing
+
+Handled automatically on every build, from the same content as the pages:
+
+- **Search basics:** one URL per page without a trailing slash (`/privacy`; `/privacy/` redirects), canonical and `hreflang` links, `sitemap-index.xml`, `robots.txt`, and Open Graph tags for link previews.
+- **Structured data:** JSON-LD for the company and its services, each page, breadcrumbs, the FAQ and every case study. Check it at <https://search.google.com/test/rich-results>.
+- **AI assistants:** `robots.txt` explicitly allows ChatGPT, Claude, Perplexity, Gemini and others. `/llms.txt` and `/llms-full.txt` give them the site as plain text.
+- **Images:** portfolio images get smaller WebP copies (`/_img/…`) so phones download less. Upload full-size images to the CMS; there's no need to resize them first.
+
+In the CMS, the **SEO title** and **SEO description** of each home page are the text Google shows. Under **Company & contact details**, add official profiles (Google Business Profile, LinkedIn, Instagram…) and search-engine verification codes.
+
+After going live on the final domain:
+
+1. Add the domain to [Google Search Console](https://search.google.com/search-console) (DNS verification, or paste the HTML-tag code into the CMS) and submit `https://<domain>/sitemap-index.xml`.
+2. Import the site into [Bing Webmaster Tools](https://www.bing.com/webmasters) from Search Console. ChatGPT search relies partly on Bing's index.
+3. Create or claim the Google Business Profile with the same name, address and phone number as the site, then add its URL to the CMS profiles.
+
 ## Hosted legal pages for other projects
 
-`root/` holds the privacy and terms pages for the apps and projects hosted here (FoodSync, AlexaFit, etc.). They are copied into the build **unchanged**, so URLs like `/root/foodsync-privacy.html` keep working. `app-ads.txt` and `output1.pdf` are copied the same way. Keep editing them in place.
+`root/` holds the privacy and terms pages for the apps and projects hosted here (FoodSync, AlexaFit, etc.). They are copied into the build **unchanged**, so URLs like `/root/foodsync-privacy.html` keep working. They are served with a `noindex` header (see `vercel.json`), so they stay reachable for app stores but stay out of search results for this site. `app-ads.txt` and `output1.pdf` are copied the same way. Keep editing them in place.
 
 ## Development
 

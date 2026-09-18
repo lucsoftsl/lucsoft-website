@@ -3,8 +3,10 @@ import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrowserFrame from '../BrowserFrame.astro';
 import Icon from '../Icon.astro';
+import Img from '../Img.astro';
 import { withBase } from '../../lib/url';
 import { workSlug } from '../../lib/work';
+import { caseStudy } from '../../lib/schema';
 import { alternatesFor, homeAnchor, routes, type Locale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/ui';
 
@@ -18,8 +20,18 @@ const t = useTranslations(locale);
 const { data } = project;
 const { Content } = await render(project);
 const slug = workSlug(project);
+const alternates = alternatesFor((l) => routes.work(l, slug));
 ---
-<BaseLayout locale={locale} alternates={alternatesFor((l) => routes.work(l, slug))} title={`${data.client} — ${t('work.pageTitle')}`} description={data.summary} image={data.cover}>
+<BaseLayout
+  locale={locale}
+  alternates={alternates}
+  title={`${data.client} — ${t('work.pageTitle')}`}
+  description={data.summary}
+  image={data.screenshot ?? data.cover}
+  imageAlt={`${data.client} — ${t('work.homepage')}`}
+  breadcrumb={data.client}
+  schema={[caseStudy(locale, alternates[locale], project)]}
+>
   <article>
     <header class="container-x pt-36 pb-12 md:pt-44">
       <a href={homeAnchor(locale, 'work')} class="eyebrow inline-flex items-center gap-2 text-ink-2 hover:text-ink">
@@ -33,7 +45,7 @@ const slug = workSlug(project);
     </header>
 
     <div class="container-x" data-reveal style="--i:2">
-      <BrowserFrame src={data.screenshot ?? data.cover} alt={`${data.client} — ${t('work.homepage')}`} url={data.url} eager />
+      <BrowserFrame src={data.screenshot ?? data.cover} alt={`${data.client} — ${t('work.homepage')}`} url={data.url} sizes="(min-width: 1408px) 1312px, 100vw" eager />
     </div>
 
     <div class="container-x grid gap-12 py-20 md:py-28 lg:grid-cols-12">
@@ -66,7 +78,7 @@ const slug = workSlug(project);
         <ul class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>li]:mb-4">
           {data.gallery.map((image, i) => (
             <li class="break-inside-avoid overflow-hidden rounded-(--radius-card)" data-reveal style={`--i:${i % 3}`}>
-              <img src={withBase(image.src)} alt={image.alt} loading="lazy" decoding="async" class="w-full transition-transform duration-[1.2s] ease-(--ease-out-expo) hover:scale-[1.03]" />
+              <Img src={image.src} alt={image.alt} sizes="(min-width: 1408px) 430px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" class="w-full transition-transform duration-[1.2s] ease-(--ease-out-expo) hover:scale-[1.03]" />
             </li>
           ))}
         </ul>

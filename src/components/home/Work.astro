@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import SectionHeading from '../SectionHeading.astro';
 import Icon from '../Icon.astro';
+import Img from '../Img.astro';
 import { withBase } from '../../lib/url';
 import { routes, type Locale } from '../../i18n/config';
 import { useTranslations } from '../../i18n/ui';
@@ -27,24 +28,18 @@ const t = useTranslations(locale);
             data-reveal
             aria-label={`${data.client} — ${t('work.caseStudy')}`}
           >
-            <img
-              src={withBase(data.cover)}
+            <Img
+              src={data.cover}
               alt=""
-              width="1600"
-              height="1200"
-              loading="lazy"
-              decoding="async"
+              sizes="(min-width: 1408px) 870px, (min-width: 1024px) 66vw, 100vw"
               class="aspect-[4/3] w-full object-cover transition-transform duration-[1.2s] ease-(--ease-out-expo) group-hover:scale-[1.04] md:aspect-[16/10]"
             />
             <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"></div>
             {data.screenshot && (
-              <img
-                src={withBase(data.screenshot)}
+              <Img
+                src={data.screenshot}
                 alt=""
-                width="1440"
-                height="900"
-                loading="lazy"
-                decoding="async"
+                sizes="(min-width: 1024px) 30vw, 46vw"
                 class:list={[
                   'absolute bottom-6 hidden w-[46%] rounded-xl shadow-2xl ring-1 ring-sand/30 transition-transform duration-700 ease-(--ease-out-expo) group-hover:-translate-y-2 sm:block',
                   flip ? 'left-6 -rotate-2' : 'right-6 rotate-2',

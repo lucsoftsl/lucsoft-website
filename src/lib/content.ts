@@ -23,12 +23,19 @@ const siteSchema = z.object({
   taxId: z.string(),
   registryDetails: z.string(),
   contactFormKey: z.string(),
+  /** Official profiles (Google Business, LinkedIn, Instagram…) — tells search engines they are the same company. */
+  profiles: z.array(z.url()).default([]),
+  /** Ownership codes from Google Search Console and Bing Webmaster Tools (the content="…" value only). */
+  verification: z
+    .object({ google: z.string().default(''), bing: z.string().default('') })
+    .default({ google: '', bing: '' }),
 });
 
 const titled = { title: z.string(), titleAccent: z.string() };
 
 const homeSchema = z.object({
   meta: z.object({
+    title: z.string(),
     description: z.string(),
     availability: z.string(),
     availabilityDetail: z.string(),

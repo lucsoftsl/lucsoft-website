@@ -1,8 +1,9 @@
 {
   "meta": {
+    "title": "Web Design & Development on the Costa del Sol | Lucsoft SL",
     "description": "Lucsoft SL is a web studio on the Costa del Sol that builds websites from A to Z: strategy, design, development, hosting, SEO and ongoing care.",
-    "availability": "Reachable almost 24/7",
-    "availabilityDetail": "Call, WhatsApp or write to us any day of the week — early mornings, late evenings and weekends included. We usually reply within a few hours."
+    "availability": "Available 24/7",
+    "availabilityDetail": "Call, WhatsApp or write to us any time, day or night — weekends included. One of our colleagues will contact you as soon as possible."
   },
   "hero": {
     "eyebrow": "Web studio · Costa del Sol, Spain",
@@ -101,7 +102,7 @@
       },
       {
         "title": "Care",
-        "text": "Updates, changes and support whenever you need them, almost around the clock."
+        "text": "Updates, changes and support whenever you need them, 24/7."
       }
     ]
   },

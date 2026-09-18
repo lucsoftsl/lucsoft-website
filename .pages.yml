@@ -31,6 +31,13 @@ content:
       - { name: taxId, label: CIF / tax ID (shown on legal pages), type: string }
       - { name: registryDetails, label: Mercantile registry details (legal pages), type: string, description: "e.g. Registro Mercantil de Málaga, Tomo X, Folio Y, Hoja MA-Z" }
       - { name: contactFormKey, label: Web3Forms access key, type: string, description: "Free key from web3forms.com. Leave empty and the form opens the visitor's email app instead." }
+      - { name: profiles, label: Official profiles (Google Business, LinkedIn, Instagram…), type: string, list: true, pattern: { regex: '^https://.+', message: 'Must start with https://' }, description: "Full profile URLs. Helps Google and AI assistants recognise these accounts as this company." }
+      - name: verification
+        label: Search engine verification
+        type: object
+        fields:
+          - { name: google, label: Google Search Console code, type: string, description: 'Only the content="…" value of the HTML tag. Not needed if you verify by DNS.' }
+          - { name: bing, label: Bing Webmaster Tools code, type: string, description: 'Only the content="…" value of the msvalidate.01 tag.' }
 
   - name: home-en
     label: Home page texts (English)
@@ -42,7 +49,8 @@ content:
         label: General
         type: object
         fields:
-          - { name: description, label: SEO description, type: text }
+          - { name: title, label: SEO title (browser tab and Google), type: string, required: true, description: "About 50–60 characters. Put the most important words first." }
+          - { name: description, label: SEO description, type: text, description: "About 140–160 characters, shown under the title in Google." }
           - { name: availability, label: Availability badge, type: string }
           - { name: availabilityDetail, label: Availability text (contact section), type: text }
       - name: hero
@@ -123,7 +131,8 @@ content:
         label: General
         type: object
         fields:
-          - { name: description, label: SEO description, type: text }
+          - { name: title, label: SEO title (browser tab and Google), type: string, required: true, description: "About 50–60 characters. Put the most important words first." }
+          - { name: description, label: SEO description, type: text, description: "About 140–160 characters, shown under the title in Google." }
           - { name: availability, label: Availability badge, type: string }
           - { name: availabilityDetail, label: Availability text (contact section), type: text }
       - name: hero

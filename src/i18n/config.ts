@@ -12,7 +12,7 @@ export const LOCALE_META: Record<Locale, { label: string; name: string; htmlLang
 
 /** Site-relative paths (without base) for every page, per locale. */
 export const routes = {
-  home: (locale: Locale) => (locale === 'en' ? '/' : '/es/'),
+  home: (locale: Locale) => (locale === 'en' ? '/' : '/es'),
   work: (locale: Locale, slug: string) => (locale === 'en' ? `/work/${slug}` : `/es/proyectos/${slug}`),
   privacy: (locale: Locale) => (locale === 'en' ? '/privacy' : '/es/privacidad'),
   terms: (locale: Locale) => (locale === 'en' ? '/terms' : '/es/aviso-legal'),

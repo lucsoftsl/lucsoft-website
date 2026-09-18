@@ -12,5 +12,10 @@
   },
   "taxId": "",
   "registryDetails": "",
-  "contactFormKey": "9843eb49-6179-4248-a716-5249e6f50a65"
+  "contactFormKey": "9843eb49-6179-4248-a716-5249e6f50a65",
+  "profiles": [],
+  "verification": {
+    "google": "",
+    "bing": ""
+  }
 }

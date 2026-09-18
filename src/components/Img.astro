@@ -1,0 +1,19 @@
+---
+// <img> for files in public/: real width/height and a responsive srcset, both filled in at build time.
+import type { HTMLAttributes } from 'astro/types';
+import { imageSize, srcsetFor } from '../lib/images';
+import { withBase } from '../lib/url';
+
+type Props = Omit<HTMLAttributes<'img'>, 'src' | 'srcset' | 'width' | 'height' | 'sizes'> & {
+  /** Site-relative path, e.g. "/media/portfolio/x/cover.webp". */
+  src: string;
+  alt: string;
+  /** Rendered width, e.g. "(min-width: 1024px) 50vw, 100vw", so the browser can pick a file. */
+  sizes?: string;
+};
+
+const { src, alt, sizes = '100vw', loading = 'lazy', decoding = 'async', ...attrs } = Astro.props;
+const { width, height } = await imageSize(src);
+const srcset = await srcsetFor(src);
+---
+<img src={withBase(src)} srcset={srcset} sizes={srcset && sizes} alt={alt} width={width} height={height} loading={loading} decoding={decoding} {...attrs} />
