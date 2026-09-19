@@ -51,7 +51,7 @@ After going live on the final domain:
 
 ## Analytics
 
-Both services are cookieless: no cookie banner is needed, and the privacy policy describes them. Their IDs are under **Company & contact details → Analytics** in the CMS; empty a field to turn that service off. They only load on the live site, not in `npm run dev`.
+Both services are cookieless: no cookie banner is needed, and the privacy policy describes them. Their IDs are under **Company & contact details → Analytics** in the CMS; empty a field to turn that service off. They only load in Vercel's production deployment, not on preview deployments, local builds or `npm run dev`.
 
 - **[Umami](https://cloud.umami.is)** (main dashboard): visitors, pages, where visitors come from (Google, Bing, ChatGPT…, including `utm_source`), countries, devices, page speed (the **Performance** tab), and what visitors click. The click events are:
 

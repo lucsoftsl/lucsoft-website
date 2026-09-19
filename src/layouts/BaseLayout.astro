@@ -50,8 +50,10 @@ const pageNodes = noindex
     ];
 const jsonLd = toJsonLd([organization(locale), website(), ...pageNodes]);
 
-// Cookieless analytics, live site only. Umami ignores visits on any other host.
-const { umamiWebsiteId, ahrefsKey } = import.meta.env.PROD ? site.analytics : { umamiWebsiteId: '', ahrefsKey: '' };
+// Cookieless analytics, only in Vercel's production build (not previews, local
+// builds or `npm run dev`). Umami also ignores visits on any other host.
+const isLiveBuild = process.env.VERCEL_ENV === 'production';
+const { umamiWebsiteId, ahrefsKey } = isLiveBuild ? site.analytics : { umamiWebsiteId: '', ahrefsKey: '' };
 const siteHost = new URL(absoluteUrl('/')).hostname;
 ---
 <!doctype html>
