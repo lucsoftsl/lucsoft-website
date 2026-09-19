@@ -1,7 +1,7 @@
 ---
 title: Política de privacidad
 description: Cómo Lucsoft SL recoge, utiliza y protege los datos personales enviados a través de esta web.
-updated: 2026-09-18
+updated: 2026-09-19
 ---
 
 Esta política de privacidad explica cómo **Lucsoft SL** ("nosotros") trata los datos personales cuando visitas esta web o te pones en contacto con nosotros. Se ha redactado conforme al Reglamento General de Protección de Datos (Reglamento (UE) 2016/679, "RGPD") y a la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
@@ -20,7 +20,9 @@ El responsable del tratamiento es Lucsoft SL. Los datos de la empresa y de conta
 - tu teléfono y el nombre de tu negocio o web, si nos los facilitas
 - el tipo de proyecto que te interesa y el contenido de tu mensaje
 
-**Cuando navegas por la web**, no utilizamos herramientas de analítica, rastreadores publicitarios ni píxeles de redes sociales. Nuestro proveedor de alojamiento trata automáticamente los datos técnicos necesarios para servir las páginas de forma segura (como la dirección IP, el tipo de navegador y la hora de la solicitud) en los registros del servidor.
+**Cuando navegas por la web**, medimos las visitas con dos servicios de analítica sin cookies, Umami y Ahrefs Web Analytics. No instalan cookies, no guardan nada en tu dispositivo y no te siguen por otras webs. Reciben la dirección de la página que visitas, la web desde la que llegas, el tipo de navegador y de dispositivo, la velocidad de carga de la página y tu dirección IP, que se usa para estimar tu país y ciudad y para contar visitas únicas sin identificarte. Nosotros solo vemos estadísticas agregadas, como cuántas personas visitaron una página o pulsaron un botón de contacto, y nunca las combinamos con otros datos para identificarte.
+
+No utilizamos rastreadores publicitarios ni píxeles de redes sociales. Nuestro proveedor de alojamiento trata automáticamente los datos técnicos necesarios para servir las páginas de forma segura (como la dirección IP, el tipo de navegador y la hora de la solicitud) en los registros del servidor.
 
 ## 3. Para qué los usamos y base legal
 
@@ -28,6 +30,7 @@ El responsable del tratamiento es Lucsoft SL. Los datos de la empresa y de conta
 | --- | --- |
 | Responder a tu consulta y preparar una propuesta | Aplicación de medidas precontractuales a petición tuya (art. 6.1.b RGPD) y tu consentimiento (art. 6.1.a RGPD) |
 | Servir la web de forma segura y prevenir abusos | Nuestro interés legítimo en mantener una web segura (art. 6.1.f RGPD) |
+| Medir de forma agregada cómo se usa la web, para mejorarla | Nuestro interés legítimo en conocer y mejorar nuestra web (art. 6.1.f RGPD) |
 | Ejecutar el contrato si te conviertes en cliente, y facturar | Ejecución de un contrato y cumplimiento de obligaciones legales (art. 6.1.b y 6.1.c RGPD) |
 
 No tomamos decisiones automatizadas ni elaboramos perfiles con tus datos, y no te enviamos comunicaciones comerciales salvo que nos lo pidas.
@@ -36,7 +39,8 @@ No tomamos decisiones automatizadas ni elaboramos perfiles con tus datos, y no t
 
 Nunca vendemos tus datos. Solo los compartimos con proveedores de servicios que nos ayudan a gestionar la web y nuestro negocio, y que actúan siguiendo nuestras instrucciones:
 
-- **Alojamiento web:** GitHub, Inc. (GitHub Pages) aloja esta web.
+- **Alojamiento web:** Vercel Inc. aloja esta web.
+- **Analítica web:** Umami Software, Inc. (Umami) y Ahrefs Pte. Ltd. (Ahrefs Web Analytics) nos facilitan las estadísticas de visitas sin cookies descritas más arriba.
 - **Envío del formulario de contacto:** Web3Forms, que reenvía a nuestro buzón los mensajes enviados desde el formulario.
 - **Correo electrónico:** Google (Gmail), que aloja nuestra cuenta de email.
 - **WhatsApp:** si decides escribirnos por WhatsApp, WhatsApp/Meta trata esa conversación conforme a sus propias condiciones.
@@ -50,10 +54,11 @@ También podemos comunicar datos cuando lo exija la ley, por ejemplo a la Agenci
 - **Consultas** que no terminan en proyecto: hasta 12 meses desde nuestro último contacto; después se eliminan.
 - **Datos de clientes:** mientras dure el contrato y, después, durante el tiempo exigido por la normativa fiscal y mercantil española (generalmente hasta 6 años).
 - **Registros del servidor:** los conserva nuestro proveedor de alojamiento durante un periodo limitado por motivos de seguridad.
+- **Analítica web:** se conserva únicamente como estadísticas que no te identifican.
 
 ## 6. Cookies
 
-Esta web no instala cookies ni utiliza tecnologías de seguimiento. Las tipografías se sirven desde nuestra propia web, no desde servicios de terceros. Si esto cambia, actualizaremos esta política y te pediremos tu consentimiento cuando sea necesario.
+Esta web no instala cookies. La analítica descrita en el apartado 2 funciona sin cookies y no guarda nada en tu dispositivo. Las tipografías se sirven desde nuestra propia web, no desde servicios de terceros. Si esto cambia, actualizaremos esta política y te pediremos tu consentimiento cuando sea necesario.
 
 ## 7. Tus derechos
 

@@ -38,6 +38,12 @@ content:
         fields:
           - { name: google, label: Google Search Console code, type: string, description: 'Only the content="…" value of the HTML tag. Not needed if you verify by DNS.' }
           - { name: bing, label: Bing Webmaster Tools code, type: string, description: 'Only the content="…" value of the msvalidate.01 tag.' }
+      - name: analytics
+        label: Analytics (cookieless)
+        type: object
+        fields:
+          - { name: umamiWebsiteId, label: Umami website ID, type: string, pattern: { regex: '^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?$', message: 'Paste the website ID from Umami (looks like 94db1cb1-74f4-4a40-ad6c-962362670409)' }, description: "From cloud.umami.is → Settings → Websites. Page views, visitor sources, clicks and page speed. Leave empty to turn Umami off." }
+          - { name: ahrefsKey, label: Ahrefs Web Analytics key, type: string, description: 'Only the data-key="…" value of the Ahrefs script. Leave empty to turn Ahrefs off.' }
 
   - name: home-en
     label: Home page texts (English)

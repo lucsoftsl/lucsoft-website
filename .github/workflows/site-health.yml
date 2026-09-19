@@ -1,0 +1,26 @@
+# Checks the live site after each production deploy and once a day: pages load
+# and are indexable, redirects work, robots.txt / sitemap / llms.txt / IndexNow
+# key and analytics are in place. A failed run emails the repository owner.
+# See scripts/site-health.mjs.
+name: Site health
+
+on:
+  deployment_status:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    if: github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - run: node scripts/site-health.mjs https://lucsoft.es

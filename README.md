@@ -47,6 +47,29 @@ After going live on the final domain:
 2. Import the site into [Bing Webmaster Tools](https://www.bing.com/webmasters) from Search Console, and submit the same sitemap. Bing's index also feeds Copilot and ChatGPT search. IndexNow submissions show up under **IndexNow** there.
 3. Create or claim the Google Business Profile with the same name, address and phone number as the site, then add its URL to the CMS profiles.
 
+**Site health check:** after every production deploy and once a day, the GitHub Action `.github/workflows/site-health.yml` checks the live site: every sitemap page loads, is indexable and has a self-referencing canonical, valid structured data, `hreflang` and a description; the `www`, `http`, `vercel.app` and trailing-slash redirects work; `robots.txt`, `llms.txt`, the IndexNow key and the analytics tags are in place. If something breaks, the run fails and GitHub emails you. Run it by hand with `node scripts/site-health.mjs`.
+
+## Analytics
+
+Both services are cookieless: no cookie banner is needed, and the privacy policy describes them. Their IDs are under **Company & contact details → Analytics** in the CMS; empty a field to turn that service off. They only load on the live site, not in `npm run dev`.
+
+- **[Umami](https://cloud.umami.is)** (main dashboard): visitors, pages, where visitors come from (Google, Bing, ChatGPT…, including `utm_source`), countries, devices, page speed (the **Performance** tab), and what visitors click. The click events are:
+
+  | Event | Properties | When |
+  | --- | --- | --- |
+  | `contact-click` | `channel` (phone, whatsapp, email), `area` | Tapping a phone, WhatsApp or email link |
+  | `contact-form-start` | | First click into the contact form |
+  | `contact-form-invalid` | `field` | Sending with a missing or invalid field |
+  | `contact-form-sent` | `project`, `via` (form, email-app) | Enquiry sent |
+  | `contact-form-failed` | | Sending failed (visitor is asked to call or email) |
+  | `case-study-click` | `project`, `area` | Opening a case study |
+  | `outbound-click` | `domain`, `area` | Links to other sites (client sites, App Store…) |
+  | `nav-click` | `target`, `area` | Menu, buttons and other links within the site |
+  | `language-switch` | `to` | Switching between English and Spanish |
+
+  `area` is the part of the page that was clicked: `header`, `hero`, `work`, `contact`, `footer`, `article` (a case study)… Clicks are tracked in `src/scripts/analytics.ts`, so new links are covered automatically. In Umami, a **Funnel** report (visit → `contact-form-start` → `contact-form-sent`) shows where enquiries drop off, and **Goals** can count `contact-click` and `contact-form-sent` as leads.
+- **[Ahrefs Web Analytics](https://app.ahrefs.com/web-analytics)**: page views and sources next to Ahrefs' SEO data (keywords, backlinks, site audit).
+
 ## Hosted legal pages for other projects
 
 `root/` holds the privacy and terms pages for the apps and projects hosted here (FoodSync, AlexaFit, etc.). They are copied into the build **unchanged**, so URLs like `/root/foodsync-privacy.html` keep working. They are served with a `noindex` header (see `vercel.json`), so they stay reachable for app stores but stay out of search results for this site. `app-ads.txt` and `output1.pdf` are copied the same way. Keep editing them in place.

@@ -29,6 +29,15 @@ const siteSchema = z.object({
   verification: z
     .object({ google: z.string().default(''), bing: z.string().default('') })
     .default({ google: '', bing: '' }),
+  /** Cookieless analytics; each is only loaded when its ID is set. */
+  analytics: z
+    .object({
+      /** Website ID from Umami Cloud (Settings → Websites): page views, clicks and Core Web Vitals. */
+      umamiWebsiteId: z.union([z.literal(''), z.uuid()]).default(''),
+      /** data-key of the Ahrefs Web Analytics script. */
+      ahrefsKey: z.string().default(''),
+    })
+    .default({ umamiWebsiteId: '', ahrefsKey: '' }),
 });
 
 const titled = { title: z.string(), titleAccent: z.string() };
