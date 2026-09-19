@@ -1,6 +1,6 @@
 ---
 title: Privacy policy
-description: How Lucsoft SL collects, uses and protects personal data submitted through this website.
+description: "How Lucsoft SL handles personal data from this website: enquiries, cookieless analytics, who we share it with, how long we keep it and your GDPR rights."
 updated: 2026-09-19
 ---
 

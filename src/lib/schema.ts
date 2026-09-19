@@ -39,7 +39,8 @@ export function organization(locale: Locale): Node {
       addressCountry: 'ES',
     },
     areaServed: AREA_SERVED,
-    availableLanguage: LANGUAGES,
+    // availableLanguage is only valid on the contact point; the company itself knowsLanguage.
+    knowsLanguage: Object.values(LOCALE_META).map((m) => m.htmlLang),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

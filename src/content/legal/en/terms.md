@@ -1,6 +1,6 @@
 ---
 title: Legal notice & terms of use
-description: Legal notice (Aviso Legal) and terms of use for the Lucsoft SL website.
+description: "Legal notice (Aviso Legal) and terms of use of the Lucsoft SL website: company details, use of the site, quotes, intellectual property and liability."
 updated: 2026-09-18
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Aviso legal y condiciones de uso
-description: Aviso legal y condiciones de uso de la web de Lucsoft SL.
+description: "Aviso legal y condiciones de uso de la web de Lucsoft SL: datos de la empresa, uso de la web, presupuestos, propiedad intelectual y responsabilidad."
 updated: 2026-09-18
 ---
 

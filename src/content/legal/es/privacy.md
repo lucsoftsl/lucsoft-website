@@ -1,6 +1,6 @@
 ---
 title: Política de privacidad
-description: Cómo Lucsoft SL recoge, utiliza y protege los datos personales enviados a través de esta web.
+description: "Cómo trata Lucsoft SL los datos personales de esta web: consultas de contacto, analítica sin cookies, con quién los compartimos, plazos y tus derechos RGPD."
 updated: 2026-09-19
 ---
 
